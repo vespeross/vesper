@@ -1,0 +1,26 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+      "start:dev": {
+        "cache": false,
+        "persistent": true
+      },
+      "build": {
+        "outputs": ["dist"],
+        "dependsOn": ["lint", "test", "test:e2e"]
+      },
+      "test": {
+        "cache": false,
+        "env": ["NODE_ENV=test"]
+      },
+      "test:e2e": {
+        "cache": false,
+        "env": ["NODE_ENV=test"]
+      },
+      "start": {
+        "dependsOn": ["build"],
+        "env": ["NODE_ENV=production"]
+      },
+      "lint": {}
+    }
+}

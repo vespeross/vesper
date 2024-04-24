@@ -1,0 +1,28 @@
+{
+  "name": "db",
+  "version": "0.0.1",
+  "description": "Database Platform",
+  "scripts": {
+    "build": "turbo build",
+    "test": "turbo test",
+    "test:e2e": "turbo test:e2e",
+    "start": "turbo start",
+    "start:dev": "turbo start:dev",
+    "lint": "turbo lint"
+  },
+  "keywords": [
+    "database",
+    "IAAS",
+    "mysql",
+    "postgres"
+  ],
+  "author": {
+    "email": "hi@jabed.dev",
+    "name": "Jabed Zaman",
+    "url": "https://jabed.dev"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "turbo": "^1.13.2"
+  }
+}
