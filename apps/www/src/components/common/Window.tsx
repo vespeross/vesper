@@ -11,7 +11,10 @@ export const Window: React.FC<WindowProps> = React.memo(
   ({ title, children, className }) => {
     return (
       <div
-        className={cn("bg-white dark:bg-[#181818] rounded-lg shadow-md", className)}
+        className={cn(
+          "bg-white dark:bg-[#181818] rounded-lg shadow-md",
+          className
+        )}
       >
         <div className="flex justify-between items-center p-2">
           <div className="flex flex-row gap-1">
@@ -22,7 +25,7 @@ export const Window: React.FC<WindowProps> = React.memo(
           <h1 className={`${redditMono.className} text-xs text-[#5a5a5a]`}>
             {title}
           </h1>
-          <div className="w-6"/>
+          <div className="w-6" />
         </div>
         <div className="p-4">{children}</div>
       </div>
