@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Hero } from "@/components/home";
+import { Grid } from "@/components/home";
 
 export default function Home(): React.JSX.Element {
   return (
     <>
-      <Hero />
+      <Grid />
     </>
   );
 }

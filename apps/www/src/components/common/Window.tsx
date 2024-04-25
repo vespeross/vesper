@@ -14,18 +14,18 @@ export const Window: React.FC<WindowProps> = React.memo(
     return (
       <div
         className={cn(
-          "bg-white dark:bg-[#181818] rounded-lg shadow-md",
+          "bg-white dark:bg-[#181818] rounded-lg shadow-md hover:scale-95 transform-cpu transition-transform duration-300 ease-in-out",
           className
         )}
       >
         <div className="flex justify-between items-center p-2">
           <div className="flex flex-row gap-1">
-            <div className="bg-[#ff2424] w-2 h-2 rounded-full" />
-            <div className="bg-[#ffcc00] w-2 h-2 rounded-full" />
-            <div className="bg-[#00c853] w-2 h-2 rounded-full" />
+            <div className="bg-[#ff2424] w-1 h-1 md:w-2 md:h-2 rounded-full" />
+            <div className="bg-[#ffcc00] w-1 h-1 md:w-2 md:h-2 rounded-full" />
+            <div className="bg-[#00c853] w-1 h-1 md:w-2 md:h-2 rounded-full" />
           </div>
           <div
-            className={`${isBrowser && `border-[0.05px] w-full max-w-xs text-center rounded-md border-[#303030]`}`}
+            className={`${isBrowser && `border-[0.05px] w-full mx-2 max-w-xs text-center rounded-md border-[#303030]`}`}
           >
             <h1 className={`${redditMono.className} text-xs text-[#5a5a5a]`}>
               {title}
