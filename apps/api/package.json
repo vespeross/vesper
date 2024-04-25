@@ -1,7 +1,7 @@
 {
-  "name": "@db/api",
+  "name": "@vesper/api",
   "version": "0.0.1",
-  "description": "API for db",
+  "description": "API for vesper",
   "author": {
     "email": "hi@jabed.dev",
     "name": "Jabed Zaman",

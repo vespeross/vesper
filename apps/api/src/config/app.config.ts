@@ -19,7 +19,7 @@ type AppConfig = {
 export default registerAs(
   'app',
   (): Required<AppConfig> => ({
-    name: process.env.APP_NAME ?? '@db/api',
+    name: process.env.APP_NAME ?? '@vesper/api',
     env: process.env.APP_ENV ?? 'development',
     versioning: {
       enable: process.env.HTTP_VERSIONING_ENABLE === 'true' ?? false,

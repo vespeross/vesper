@@ -1,7 +1,7 @@
 {
-  "name": "@db/static",
+  "name": "@vesper/static",
   "version": "0.0.1",
-  "description": "Static assets for db",
+  "description": "Static assets for vesper",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
