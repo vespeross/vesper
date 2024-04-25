@@ -1,6 +1,7 @@
 import * as React from "react";
 import { bricolage, sora } from "@/lib/fonts";
 import { Create } from "./Create";
+import { Window } from "../common";
 
 type HeadingProps = {
   Heading: string;
@@ -33,9 +34,10 @@ export const Hero: React.FC = React.memo(() => {
         Heading="Set Up Your Database in Seconds, and Let Us Handle the Rest"
         SubHeading="Cause your primary focus should be on building your app, not managing database!! Easy to setup, Cheap to maintain, and  Easiliy Scalable"
       />
-      <div className="mr-auto my-10">
-      <Create />
-      </div>
+      <div className="flex flex-row justify-center items-center space-x-5]"></div>
+      <Window title="vesper" className="mr-auto my-10">
+        <Create />
+      </Window>
     </section>
   );
 });

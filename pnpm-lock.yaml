@@ -191,6 +191,8 @@ importers:
         specifier: ^5
         version: 5.4.5
 
+  packages/cli: {}
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
