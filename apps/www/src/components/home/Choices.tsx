@@ -7,11 +7,11 @@ export const Choices: React.FC = React.memo(() => {
     <div className="flex flex-col justify-center my-10">
       <div className="flex flex-col items-center">
         <h2
-          className={`${sora.className} lg:text-3xl md:text-2xl text-xl font-bold`}
+          className={`${sora.className} lg:text-3xl text-center md:text-2xl text-xl font-bold`}
         >
           Chose from your favourite engine
         </h2>
-        <h3 className={`${sora.className} md:text-lg text-sm text-[#6d6d6d]`}>
+        <h3 className={`${sora.className} md:text-lg text-center text-sm text-[#6d6d6d]`}>
           we have a wide range of engines to choose from, be is relational or NoSQL
         </h3>
       </div>

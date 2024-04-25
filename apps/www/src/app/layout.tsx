@@ -10,7 +10,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-[#0e0e0e]">
+      <body className="bg-[#0c0c0c]">
         <CommonProvider>
           {children}
           <Toaster />

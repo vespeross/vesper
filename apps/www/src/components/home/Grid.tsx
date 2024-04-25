@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Heading } from "./Heading";
 import { Hero } from "./Hero";
-import { Insights } from "./Insights";
 import { Choices } from "./Choices";
+import { CLI } from "./CLI";
 
 export const Grid: React.FC = React.memo(() => {
   return (
-    <section className={`my-10 w-full flex flex-col`}>
+    <section className={`my-5 w-full flex flex-col`}>
       {/* heading */}
       <div className="border-x-[0.05px] mx-4 h-10 border-[#272727]" />
       <div className="w-full flex flex-row mx-auto">
@@ -19,7 +19,7 @@ export const Grid: React.FC = React.memo(() => {
         </div>
         <div className="border-y-[0.05px] border-[#272727] p-2" />
       </div>
-      
+
       {/* hero */}
       <div className="border-x-[0.05px] mx-4 h-10 border-[#272727]" />
       <div className="w-full flex flex-row mx-auto">
@@ -40,15 +40,17 @@ export const Grid: React.FC = React.memo(() => {
         <div className="border-y-[0.05px] border-[#272727] p-2" />
       </div>
 
-      {/* insights */}
+      {/* cli */}
       <div className="border-x-[0.05px] mx-4 h-10 border-[#272727]" />
       <div className="w-full flex flex-row mx-auto">
         <div className="border-y-[0.05px] border-[#272727] p-2" />
         <div className="border-[0.05px] w-full border-[#272727] p-2">
-          <Insights />
+          <CLI />
         </div>
         <div className="border-y-[0.05px] border-[#272727] p-2" />
       </div>
+
+      {/* end */}
       <div className="border-x-[0.05px] mx-4 h-10 border-[#272727]" />
     </section>
   );

@@ -3,7 +3,7 @@ import * as React from "react";
 export const Insights: React.FC = React.memo(() => {
   return (
     <div>
-      <p></p>
+      <p>hi</p>
     </div>
   );
 });

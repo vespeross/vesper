@@ -1,5 +1,5 @@
 import * as React from "react";
-import { QuickAlert, Header } from "@/components";
+import { QuickAlert, Header , Footer} from "@/components";
 
 export default function WithHeaderLayout({
   children,
@@ -18,6 +18,7 @@ export default function WithHeaderLayout({
       )}
       <Header />
       <main className="max-w-7xl mx-auto">{children}</main>
+      <Footer />
     </>
   );
 }

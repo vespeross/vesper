@@ -14,7 +14,7 @@ export const Window: React.FC<WindowProps> = React.memo(
     return (
       <div
         className={cn(
-          "bg-white dark:bg-[#181818] rounded-lg shadow-md hover:scale-95 transform-cpu transition-transform duration-300 ease-in-out",
+          "bg-white dark:bg-[#181818] rounded-lg shadow-md",
           className
         )}
       >
@@ -31,7 +31,11 @@ export const Window: React.FC<WindowProps> = React.memo(
               {title}
             </h1>
           </div>
-          <Share2Icon className="w-4 h-4 text-[#5a5a5a]" />
+          {isBrowser ? (
+            <Share2Icon className="w-4 h-4 text-[#5a5a5a]" />
+          ) : (
+            <div className="w-4 h-4" />
+          )}
         </div>
         <div>{children}</div>
       </div>
