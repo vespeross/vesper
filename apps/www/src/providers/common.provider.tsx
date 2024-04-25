@@ -1,5 +1,7 @@
 import * as React from "react";
 import { ThemeProvider } from "./theme.provider";
+import { LenisProvider } from "./lenis.provider";
+import { NProgressProvider } from "./nprogress.provider";
 
 export const CommonProvider = ({
   children,
@@ -11,7 +13,9 @@ export const CommonProvider = ({
       enableSystem
       disableTransitionOnChange
     >
-      {children}
+      <NProgressProvider>
+        <LenisProvider>{children}</LenisProvider>
+      </NProgressProvider>
     </ThemeProvider>
   );
 };

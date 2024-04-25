@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | DB",
-    default: "DB",
+    template: "%s | vesper",
+    default: "vesper -- new gen cheap, fast and scalable database platform",
   },
-  description: "Database Platform",
+  description: "vesper is a new gen cheap, fast and scalable database platform",
 };
