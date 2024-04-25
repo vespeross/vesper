@@ -1,7 +1,7 @@
-import { Header } from "@/components";
-import { CommonProvider } from "@/providers";
 import "@/styles/globals.css";
 export { metadata } from "@/config";
+import { CommonProvider } from "@/providers";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -10,10 +10,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="max-w-7xl mx-auto p-2">
+      <body>
         <CommonProvider>
-          <Header />
           {children}
+          <Toaster />
         </CommonProvider>
       </body>
     </html>

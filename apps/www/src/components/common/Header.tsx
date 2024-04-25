@@ -8,19 +8,21 @@ type Entry = {
 };
 
 const entries: Entry[] = [
-  { title: "About", href: "/about" },
+  { title: "Benchmarks", href: "/benchmarks" },
   { title: "Contact", href: "/contact" },
 ];
 
 export const Header: React.FC = React.memo(() => {
   return (
-    <header className="my-5">
-      <Link href={"/"} className={`${sora.className} select-none`}>
-        vesper
-      </Link>
-      <nav className="flex justify-end">
-        {entries.map((entry) => (
-          <Link key={entry.title} href={entry.href} className="mx-2">
+    <header className="my-2 max-w-7xl mx-auto px-2 items-baseline flex flex-row">
+      <div>
+        <Link href={"/"} className={`${sora.className} text-2xl select-none`}>
+          vesper
+        </Link>
+      </div>
+      <nav className="mx-10 flex flex-row gap-5">
+        {entries.map((entry, key) => (
+          <Link key={key} href={entry.href} className={`${sora.className} text-sm`}>
             {entry.title}
           </Link>
         ))}
