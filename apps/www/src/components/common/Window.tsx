@@ -1,14 +1,16 @@
 import * as React from "react";
+import { Share2Icon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import { redditMono } from "@/lib/fonts";
 
 type WindowProps = {
   title: string;
   children: React.ReactNode;
+  isBrowser?: boolean;
   className?: HTMLElement["className"];
 };
 export const Window: React.FC<WindowProps> = React.memo(
-  ({ title, children, className }) => {
+  ({ title, children, className, isBrowser = false }) => {
     return (
       <div
         className={cn(
@@ -22,12 +24,16 @@ export const Window: React.FC<WindowProps> = React.memo(
             <div className="bg-[#ffcc00] w-2 h-2 rounded-full" />
             <div className="bg-[#00c853] w-2 h-2 rounded-full" />
           </div>
-          <h1 className={`${redditMono.className} text-xs text-[#5a5a5a]`}>
-            {title}
-          </h1>
-          <div className="w-6" />
+          <div
+            className={`${isBrowser && `border-[0.05px] w-full max-w-xs text-center rounded-md border-[#303030]`}`}
+          >
+            <h1 className={`${redditMono.className} text-xs text-[#5a5a5a]`}>
+              {title}
+            </h1>
+          </div>
+          <Share2Icon className="w-4 h-4 text-[#5a5a5a]" />
         </div>
-        <div className="p-4">{children}</div>
+        <div>{children}</div>
       </div>
     );
   }

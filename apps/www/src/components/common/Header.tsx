@@ -16,13 +16,13 @@ const entries: Entry[] = [
 
 export const Header: React.FC = React.memo(() => {
   return (
-    <header className="my-2 max-w-7xl mx-auto px-2 items-baseline flex flex-row">
+    <header className="my-2 max-w-7xl mx-auto px-4 items-baseline flex flex-row">
       <div>
         <Link href={"/"} className={`${sora.className} text-2xl select-none`}>
           vesper
         </Link>
       </div>
-      <nav className="mx-10 flex flex-row gap-5">
+      <nav className="mx-10 flex-row gap-5 md:inline-flex hidden ">
         {entries.map((entry, key) => (
           <Link key={key} href={entry.href} className={`${sora.className} text-[#a8a8a8] text-sm`}>
             {entry.title}
