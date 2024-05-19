@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import configs from '@/config';
 import { PrismaService } from './services/prisma.service';
+import { HelperHashService } from './services/hash.service';
 
 @Module({
   controllers: [],
@@ -14,7 +15,7 @@ import { PrismaService } from './services/prisma.service';
       expandVariables: true,
     }),
   ],
-  providers: [PrismaService],
-  exports: [PrismaService],
+  providers: [PrismaService, HelperHashService],
+  exports: [PrismaService, HelperHashService],
 })
 export class CommonModule {}

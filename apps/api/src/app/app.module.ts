@@ -6,10 +6,14 @@ import { CommonModule } from '@/common/common.module';
 import { PrismaService } from '@services/prisma.service';
 import { TerminusModule } from '@nestjs/terminus';
 import { CoreModule } from '@/core/core.module';
+import { UserModule } from '@/modules/user/user.module';
+import { AuthModule } from '@/modules/auth/auth.module';
 
 @Module({
   imports: [
     CommonModule,
+    UserModule,
+    AuthModule,
     CoreModule,
     TerminusModule,
     ConfigModule.forRoot({
