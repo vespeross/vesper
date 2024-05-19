@@ -36,7 +36,7 @@ export const Header: React.FC = React.memo(() => {
     >
       <div className="max-w-7xl mx-auto px-4 flex flex-row justify-between items-center">
         <div>
-          <Link href={"/"} className={`${sora.className} text-2xl select-none`}>
+          <Link href={"/"} className={`${sora.className} text-2xl font-semibold  select-none animate-shine bg-[linear-gradient(110deg,#939393,45%,#fff,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text`}>
             vesper
           </Link>
         </div>
