@@ -37,9 +37,9 @@ export function AppLayout({ children }: {
         if (!isLoading && !user) {
             navigate("/auth/login")
         }
-
     }, [isLoading])
-    if (isLoading) {
+
+    if (isLoading || !user) {
         return <div>Loading...</div>
     }
     return (
