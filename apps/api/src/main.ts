@@ -1,15 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 import helmet from 'helmet';
+import * as compression from 'compression';
 
-import { AppModule } from './app/app.module';
-import { setupSwagger } from './swagger';
+import { AppModule } from '@/app/app.module';
+import { setupSwagger } from '@/swagger';
 
-export const logger = new Logger('API Service');
+export const logger = new Logger('vesper backend api');
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
   });
   const configService = app.get(ConfigService);
@@ -24,9 +27,15 @@ async function bootstrap() {
     'app.versioning.enable',
   );
   app.use(helmet());
+  app.use(compression());
   app.getHttpAdapter().getInstance().set('json spaces', 4);
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   app.setGlobalPrefix(globalPrefix);
+  app.useStaticAssets('public');
   if (versionEnable) {
     app.enableVersioning({
       type: VersioningType.URI,
@@ -34,7 +43,12 @@ async function bootstrap() {
       prefix: versioningPrefix,
     });
   }
-  setupSwagger(app);
+  if (configService.get<string>('app.env') === 'development') {
+    setupSwagger(app);
+  }
+  app.getHttpAdapter().get('/', (_, res: Response) => {
+    res.redirect('/api/v1/health');
+  });
   await app.listen(port, () => {
     logger.log(
       `🚀 ${configService.get<string>('app.name').toLocaleUpperCase()} is running on ${host}:${port}`,
