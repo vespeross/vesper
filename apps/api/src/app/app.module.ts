@@ -5,10 +5,12 @@ import configs from '@/config';
 import { CommonModule } from '@/common/common.module';
 import { PrismaService } from '@services/prisma.service';
 import { TerminusModule } from '@nestjs/terminus';
+import { CoreModule } from '@/core/core.module';
 
 @Module({
   imports: [
     CommonModule,
+    CoreModule,
     TerminusModule,
     ConfigModule.forRoot({
       load: configs,
