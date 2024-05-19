@@ -5,7 +5,6 @@ import { Dashboard, Login, Register } from "@/pages"
 export default function App() {
   return (
     <TooltipProvider>
-
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />
