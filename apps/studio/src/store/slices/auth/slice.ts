@@ -7,8 +7,8 @@ const initialState: UserSliceState = {
   user: null,
 };
 
-export const counterSlice = createSlice({
-  name: "user",
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     addUser: (state, action: PayloadAction<AddUserPayload>) => {
@@ -22,5 +22,5 @@ export const counterSlice = createSlice({
   },
 });
 
-export const actions = counterSlice.actions;
-export const reducer = counterSlice.reducer;
+export const actions = authSlice.actions;
+export const reducer = authSlice.reducer;
