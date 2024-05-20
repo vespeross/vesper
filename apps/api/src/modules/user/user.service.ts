@@ -1,7 +1,10 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { IUserService } from './interfaces/user.service';
+import {
+  IUserService,
+  createUserResponse,
+  getAllUsersResponse,
+} from './interfaces';
 import { CreateUserDto } from './dtos';
-import { createUserResponse } from './interfaces/user.response';
 import { PrismaService } from '@/common/services/prisma.service';
 import { HelperHashService } from '@/common/services/hash.service';
 
@@ -35,5 +38,19 @@ export class UserService implements IUserService {
       }
       throw new Error('Something went wrong');
     }
+  }
+
+  async getAllUsers(): Promise<getAllUsersResponse> {
+    const users = await this.prismaService.user.findMany({
+      select: {
+        cid: true,
+        email: true,
+        strategy: true,
+      },
+    });
+    return {
+      length: users.length,
+      users,
+    };
   }
 }
