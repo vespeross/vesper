@@ -1,7 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { HealthCheckService } from '@nestjs/terminus';
 import { PrismaService } from '@services/prisma.service';
 
+@ApiTags('app')
 @Controller()
 export class AppController {
   constructor(
