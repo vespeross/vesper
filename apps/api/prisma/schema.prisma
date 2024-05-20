@@ -15,7 +15,7 @@ datasource db {
 
   schemas = ["public", "auth"]
 }
-
+ 
 enum Strategy {
   LOCAL
   GOOGLE
