@@ -9,7 +9,7 @@ import { CreateUserDto } from './dtos';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('create')
+  @Post('register')
   public login(@Body() payload: CreateUserDto) {
     return this.userService.createUser(payload);
   }
