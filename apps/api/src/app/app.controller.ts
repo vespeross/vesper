@@ -1,3 +1,4 @@
+import { UserService } from '@/modules/user/user.service';
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { HealthCheckService } from '@nestjs/terminus';
@@ -9,6 +10,7 @@ export class AppController {
   constructor(
     private readonly healthCheckService: HealthCheckService,
     private readonly prismaService: PrismaService,
+    private readonly userService: UserService,
   ) {}
 
   @Get('/health')
@@ -16,5 +18,10 @@ export class AppController {
     return this.healthCheckService.check([
       () => this.prismaService.isHealthy(),
     ]);
+  }
+
+  @Get('/init')
+  public async init() {
+    return this.userService.isNewInstall();
   }
 }
