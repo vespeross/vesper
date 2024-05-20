@@ -1,6 +1,6 @@
 import { User } from "@/types";
 
-export type UserSliceState = {
+export type AuthSliceState = {
   user: User | null;
   access_token: string | null;
 };
