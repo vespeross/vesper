@@ -1,6 +1,8 @@
 import { UserLoginDto } from '../dtos';
-import { UserLoginResponse } from './auth.response';
+import { IAuthPayload, IAuthResponse, ITokenResponse } from './auth.response';
 
 export type IAuthService = {
-  login: (payload: UserLoginDto) => Promise<UserLoginResponse>;
+  verifyToken(accessToken: string): Promise<IAuthPayload>;
+  generateTokens(user: IAuthPayload): Promise<ITokenResponse>;
+  login(data: UserLoginDto): Promise<IAuthResponse>;
 };

@@ -1,7 +1,7 @@
 import { CreateUserDto } from '../dtos';
-import { createUserResponse, getAllUsersResponse } from './user.response';
+import { createUserResponse, isNewInstallResponse } from './user.response';
 
 export interface IUserService {
   createUser(payload: CreateUserDto): Promise<createUserResponse>;
-  getAllUsers(): Promise<getAllUsersResponse>;
+  isNewInstall(): Promise<isNewInstallResponse>;
 }

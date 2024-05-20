@@ -1,5 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserLoginResponse, IAuthService } from './interfaces';
+import {
+  IAuthPayload,
+  IAuthResponse,
+  ITokenResponse,
+  IAuthService,
+} from './interfaces';
 import { PrismaService } from '@/common/services/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { HelperHashService } from '@/common/services/hash.service';
@@ -12,7 +17,7 @@ export class AuthService implements IAuthService {
     private readonly jwtService: JwtService,
     private readonly hashService: HelperHashService,
   ) {}
-  async login(userLoginDto: UserLoginDto): Promise<UserLoginResponse> {
+  async login(userLoginDto: UserLoginDto): Promise<IAuthResponse> {
     const { email, password } = userLoginDto;
     const user = await this.prismaService.user.findUnique({
       where: {
@@ -38,5 +43,12 @@ export class AuthService implements IAuthService {
       refreshToken,
       user,
     };
+  }
+
+  generateTokens(user: IAuthPayload): Promise<ITokenResponse> {
+    throw new Error('Method not implemented.');
+  }
+  verifyToken(accessToken: string): Promise<IAuthPayload> {
+    throw new Error('Method not implemented.');
   }
 }

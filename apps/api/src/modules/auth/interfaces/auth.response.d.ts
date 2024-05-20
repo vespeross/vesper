@@ -1,7 +1,14 @@
 import { UserWithoutPassword } from '@/types';
 
-export type UserLoginResponse = {
-  user: UserWithoutPassword;
+export interface ITokenResponse {
   accessToken: string;
   refreshToken: string;
-};
+}
+
+export interface IAuthResponse extends ITokenResponse {
+  user: UserWithoutPassword;
+}
+
+export interface IAuthPayload {
+  cid: number;
+}

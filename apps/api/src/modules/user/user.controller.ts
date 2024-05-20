@@ -16,8 +16,8 @@ export class UserController {
     return this.userService.createUser(payload);
   }
 
-  @Get()
-  public getAllUsers() {
-    return this.userService.getAllUsers();
+  @Get('new-install')
+  public isNewInstall() {
+    return this.userService.isNewInstall();
   }
 }

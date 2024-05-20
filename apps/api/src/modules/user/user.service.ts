@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import {
   IUserService,
   createUserResponse,
-  getAllUsersResponse,
+  isNewInstallResponse,
 } from './interfaces';
 import { CreateUserDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
@@ -40,17 +40,10 @@ export class UserService implements IUserService {
     }
   }
 
-  async getAllUsers(): Promise<getAllUsersResponse> {
-    const users = await this.prismaService.user.findMany({
-      select: {
-        cid: true,
-        email: true,
-        strategy: true,
-      },
-    });
+  async isNewInstall(): Promise<isNewInstallResponse> {
+    const users = await this.prismaService.user.findMany();
     return {
-      length: users.length,
-      users,
+      newInstall: users.length === 0,
     };
   }
 }
