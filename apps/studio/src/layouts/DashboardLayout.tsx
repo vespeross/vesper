@@ -1,5 +1,5 @@
 import { ChartLine, Gear, House, Lightning, MagnifyingGlass, Package, ShoppingBag, Users } from "@phosphor-icons/react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 
 import {
     Breadcrumb,
@@ -25,25 +25,21 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { ReactNode, useEffect } from "react"
-import { useAuth } from "@/hooks"
 
-export function AppLayout({ children }: {
-    children: ReactNode
-}) {
-    const { isLoading, user } = useAuth()
+export function DashboardLayout() {
+    // const { isLoading, user } = useAuth()
 
 
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (!isLoading && !user) {
-            navigate("/auth/login")
-        }
-    }, [isLoading])
+    // const navigate = useNavigate()
+    // useEffect(() => {
+    //     if (!isLoading && !user) {
+    //         navigate("/auth/login")
+    //     }
+    // }, [isLoading])
 
-    if (isLoading || !user) {
-        return <div>Loading...</div>
-    }
+    // if (isLoading || !user) {
+    //     return <div>Loading...</div>
+    // }
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
             <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -240,10 +236,8 @@ export function AppLayout({ children }: {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </header>
-                <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-                    {children}
-
-
+                <main className="p-4 sm:px-6 sm:py-0">
+                    <Outlet />
                 </main>
             </div>
         </div>
