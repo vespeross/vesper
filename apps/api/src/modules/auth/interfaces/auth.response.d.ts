@@ -10,5 +10,5 @@ export interface IAuthResponse extends ITokenResponse {
 }
 
 export interface IAuthPayload {
-  cid: number;
+  cid: string;
 }
