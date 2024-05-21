@@ -1,6 +1,8 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthUser } from '@/core/decorators/user.decorator';
+import { IAuthPayload } from '../auth/interfaces';
 
 @ApiTags('user')
 @Controller({
@@ -9,4 +11,9 @@ import { ApiTags } from '@nestjs/swagger';
 })
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Get()
+  async get(@AuthUser() user: IAuthPayload) {
+    return await this.userService.getUser(user.cid);
+  }
 }

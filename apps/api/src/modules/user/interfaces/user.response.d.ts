@@ -7,3 +7,7 @@ export type createUserResponse = {
 export type isNewInstallResponse = {
   newInstall: boolean;
 };
+
+export type getUser = {
+  user: UserWithoutPassword;
+};

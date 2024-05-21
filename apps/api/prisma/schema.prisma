@@ -13,9 +13,9 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 
-  schemas = ["public", "auth"]
+  schemas = ["public", "auth", "projects"]
 }
- 
+
 enum Strategy {
   LOCAL
   GOOGLE
@@ -24,10 +24,25 @@ enum Strategy {
 }
 
 model User {
-  cid           String   @id @default(cuid())
-  email         String   @unique
+  cid           String    @id @default(cuid())
+  email         String    @unique
   password_hash String?
-  strategy      Strategy @default(LOCAL)
+  strategy      Strategy  @default(LOCAL)
+  Project       Project[]
 
+  @@index([email], name: "email")
   @@schema("auth")
+}
+
+model Project {
+  cid         String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [cid])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([ownerId], name: "ownerId")
+  @@schema("projects")
 }
