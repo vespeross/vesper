@@ -26,12 +26,14 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { ReactNode, useEffect } from "react"
-import { useUser } from "@/hooks"
+import { useAuth } from "@/hooks"
 
 export function AppLayout({ children }: {
     children: ReactNode
 }) {
-    const { isLoading, user } = useUser()
+    const { isLoading, user } = useAuth()
+
+
     const navigate = useNavigate()
     useEffect(() => {
         if (!isLoading && !user) {
