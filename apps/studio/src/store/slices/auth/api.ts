@@ -1,9 +1,5 @@
 import { api } from "@/store/api";
-
-type LoginPayload = {
-  email: string;
-  password: string;
-};
+import type { LoginPayload } from "./types";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -14,7 +10,14 @@ const authApi = api.injectEndpoints({
         body,
       }),
     }),
+    signup: build.mutation({
+      query: (body: LoginPayload) => ({
+        url: "/auth/signup",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useSignupMutation } = authApi;

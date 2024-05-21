@@ -3,10 +3,45 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signupSchema } from "./validation";
+import { useSignupMutation } from "@/store/slices/auth";
 
 export const Register: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signupSchema),
+  });
+  const [sigup, { isLoading, isError, isSuccess }] = useSignupMutation();
+  const onSubmit = async (data: { email: string; password: string }) => {
+    try {
+      const { data: signupData } = await sigup({
+        email: data.email,
+        password: data.password,
+      }).unwrap();
+      console.log(signupData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log({
+    isError,
+    isLoading,
+    isSuccess,
+  });
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input {...register("email")} />
+        <p>{errors.email?.message}</p>
+        <input {...register("password")} />
+        <p>{errors.password?.message}</p>
+        <input type="submit" />
+      </form>
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">

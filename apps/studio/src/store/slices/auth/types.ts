@@ -12,3 +12,8 @@ export type AddUserPayload = {
   user: User;
   access_token: string;
 };
+
+export type LoginPayload = {
+  email: string;
+  password: string;
+};
