@@ -23,6 +23,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@reduxjs/toolkit": "^2.2.5",
+    "@tanstack/react-form": "^0.19.5",
     "axios": "^1.7.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

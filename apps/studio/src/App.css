@@ -70,10 +70,10 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-medium;
   }
 
   body {
-    @apply bg-background text-foreground font-urbanist font-medium;
+    @apply bg-background text-foreground font-urbanist;
   }
 }
