@@ -1,12 +1,53 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { useLoginMutation } from "@/store/slices/auth";
+import { useForm } from "react-hook-form";
+import { loginSchema } from "./validation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useStoreDispatch } from "@/hooks";
+import { actions as authActions } from "@/store/slices/auth";
+import { useNewQuery } from "@/store/slices/general";
 
-export const Register: React.FC = () => {
+export const Login: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
+  const dispatch = useStoreDispatch();
+  const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
+  const onSubmit = async (data: { email: string; password: string }) => {
+    try {
+      const { data: loginData } = await login({
+        email: data.email,
+        password: data.password,
+      }).unwrap();
+      dispatch(authActions.addUser(loginData));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log({
+    isError,
+    isLoading,
+    isSuccess,
+  });
+  const { data } = useNewQuery({});
+  console.log(data);
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input {...register("email")} />
+        <p>{errors.email?.message}</p>
+        <input {...register("password")} />
+        <p>{errors.password?.message}</p>
+        <input type="submit" />
+      </form>
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">

@@ -1,12 +1,8 @@
-import { preferenceService } from "@/services/preference.service"
+import * as React from "react";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const { data, error, isLoading } = preferenceService.checkFreshInstall()
-    console.log(data?.freshInstall)
-    return (
-        <div>
-            {children}
-
-        </div>
-    )
-}
+type RootLayoutProps = {
+  children: React.ReactNode;
+};
+export const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+  return <div className="min-h-screen bg-gray-100">{children}</div>;
+};

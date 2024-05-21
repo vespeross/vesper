@@ -5,6 +5,9 @@ import type { AuthSliceState, AddUserPayload } from "./types";
 const initialState: AuthSliceState = {
   access_token: null,
   user: null,
+  error: null,
+  isAuthenticating: false,
+  isLoading: false,
 };
 
 export const authSlice = createSlice({

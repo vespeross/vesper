@@ -1,3 +1,4 @@
+import { statusMessages } from '@/app/app.constants';
 import {
   Injectable,
   NestInterceptor,
@@ -16,8 +17,12 @@ export class ResponseInterceptor implements NestInterceptor {
     next: CallHandler,
   ): Promise<any> {
     const body = await firstValueFrom(next.handle());
-    // const _ =
-    //   this.reflector.get<number>('__httpCode__', context.getHandler()) || 200;
-    return of(body);
+    const status =
+      this.reflector.get<number>('__httpCode__', context.getHandler()) || 200;
+    return of({
+      statusCode: status,
+      message: statusMessages[status],
+      body: body,
+    });
   }
 }
