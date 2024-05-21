@@ -9,6 +9,7 @@ import { loginSchema } from "./validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useStoreDispatch } from "@/hooks";
 import { actions as authActions } from "@/store/slices/auth";
+import { useNewQuery } from "@/store/slices/general";
 
 export const Login: React.FC = () => {
   const {
@@ -36,6 +37,8 @@ export const Login: React.FC = () => {
     isLoading,
     isSuccess,
   });
+  const { data } = useNewQuery({});
+  console.log(data);
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <form onSubmit={handleSubmit(onSubmit)}>

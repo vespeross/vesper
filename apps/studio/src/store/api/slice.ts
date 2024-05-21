@@ -32,26 +32,26 @@ const baseQueryWithReAuth = async (
   let result = await baseQuery(args, api, extraOptions);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  if (result.data.error === "Token is expired") {
-    const refreshResult = (await baseQuery(
-      "/auth/refresh",
-      api,
-      extraOptions
-    )) as { data: RefreshResponse };
-    if (refreshResult.data.access_token) {
-      const state = api.getState() as RootState;
-      const user = state.auth.user;
-      api.dispatch(
-        actions.addUser({
-          access_token: refreshResult.data.access_token,
-          user: user!,
-        })
-      );
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      api.dispatch(actions.removeUser());
-    }
-  }
+  // if (result.data.error === "Token is expired") {
+  //   const refreshResult = (await baseQuery(
+  //     "/auth/refresh",
+  //     api,
+  //     extraOptions
+  //   )) as { data: RefreshResponse };
+  //   if (refreshResult.data.access_token) {
+  //     const state = api.getState() as RootState;
+  //     const user = state.auth.user;
+  //     api.dispatch(
+  //       actions.addUser({
+  //         access_token: refreshResult.data.access_token,
+  //         user: user!,
+  //       })
+  //     );
+  //     result = await baseQuery(args, api, extraOptions);
+  //   } else {
+  //     api.dispatch(actions.removeUser());
+  //   }
+  // }
   return result;
 };
 
