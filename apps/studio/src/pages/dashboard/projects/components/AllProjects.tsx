@@ -1,5 +1,5 @@
-import Project from '@/components/Project'
 import { ProjectType } from '@/types'
+import ProjectCard from './ProjectCard'
 const projects: ProjectType[] = [
     {
         id: '1',
@@ -12,15 +12,13 @@ const projects: ProjectType[] = [
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, sunt'
     }
 ]
-
-export default function Projects() {
+export default function AllProjects() {
     return (
-        <div className='grid grid-cols-5 gap-5 w-full'>
+        <>
             {projects.map(project => (
-                <Project key={project.id} project={project} />
+                <ProjectCard key={project.id} project={project} />
             )
             )}
-
-        </div>
+        </>
     )
 }

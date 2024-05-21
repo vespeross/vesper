@@ -1,9 +1,9 @@
 import { ProjectType } from '@/types'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuTrigger } from './ui/context-menu'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuTrigger } from '@/components/ui/context-menu'
 import { Copy, Database, Download, Eye, Globe, Key, Pause, PencilSimpleLine, Trash } from '@phosphor-icons/react'
 
-export default function Project({ project }: { project: ProjectType }) {
+export default function ProjectCard({ project }: { project: ProjectType }) {
     return (
         <ContextMenu>
             <ContextMenuTrigger>
