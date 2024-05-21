@@ -6,6 +6,7 @@ import Project from "@/pages/dashboard/projects/project";
 import { Dashboard } from "./pages/dashboard";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { Login, Register } from "./pages/auth";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           </Route>
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
