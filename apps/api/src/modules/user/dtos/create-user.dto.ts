@@ -1,18 +1,24 @@
 import { IsEmail, IsIn, IsNotEmpty, IsStrongPassword } from 'class-validator';
 import { Strategy } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
+import { faker } from '@faker-js/faker';
 
 export class CreateUserDto {
   @ApiProperty({
     description: 'User email',
-    example: 'hi@jabed.dev',
+    example: faker.internet.email(),
   })
+  @IsNotEmpty()
   @IsEmail()
+  @Transform(({ value }) => value.toLowerCase())
   email: string;
 
   @ApiProperty({
     description: 'User password',
-    example: 'Password!1234',
+    example: faker.internet.password({
+      prefix: 'Aa1@',
+    }),
   })
   @IsNotEmpty()
   @IsStrongPassword()

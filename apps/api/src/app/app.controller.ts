@@ -1,3 +1,4 @@
+import { Public } from '@/core/decorators/public.decorator';
 import { UserService } from '@/modules/user/user.service';
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,6 +14,7 @@ export class AppController {
     private readonly userService: UserService,
   ) {}
 
+  @Public()
   @Get('/health')
   public async getHealth() {
     return this.healthCheckService.check([
@@ -20,6 +22,7 @@ export class AppController {
     ]);
   }
 
+  @Public()
   @Get('/init')
   public async init() {
     return this.userService.isNewInstall();
