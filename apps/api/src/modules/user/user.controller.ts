@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dtos';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('user')
@@ -10,14 +9,4 @@ import { ApiTags } from '@nestjs/swagger';
 })
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  @Post('register')
-  public login(@Body() payload: CreateUserDto) {
-    return this.userService.createUser(payload);
-  }
-
-  @Get('new-install')
-  public isNewInstall() {
-    return this.userService.isNewInstall();
-  }
 }

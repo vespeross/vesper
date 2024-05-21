@@ -8,6 +8,7 @@ import { TerminusModule } from '@nestjs/terminus';
 import { CoreModule } from '@/core/core.module';
 import { UserModule } from '@/modules/user/user.module';
 import { AuthModule } from '@/modules/auth/auth.module';
+import { UserService } from '@/modules/user/user.service';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { AuthModule } from '@/modules/auth/auth.module';
     }),
   ],
   controllers: [AppController],
-  providers: [PrismaService],
+  providers: [PrismaService, UserService],
 })
 export class AppModule {}

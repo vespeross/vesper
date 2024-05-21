@@ -4,6 +4,7 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaService } from '@/common/services/prisma.service';
 import { HelperHashService } from '@/common/services/hash.service';
+import { UserService } from '../user/user.service';
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { HelperHashService } from '@/common/services/hash.service';
       secret: 'secretKey',
     }),
   ],
-  providers: [AuthService, PrismaService, HelperHashService],
+  providers: [AuthService, UserService, PrismaService, HelperHashService],
   controllers: [AuthController],
 })
 export class AuthModule {}
