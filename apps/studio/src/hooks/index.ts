@@ -1,2 +1,3 @@
 export * from "./useStoreSelector";
-export * from "./useUser";
+export * from "./useStoreDispatch";
+export * from "./useAuth";
