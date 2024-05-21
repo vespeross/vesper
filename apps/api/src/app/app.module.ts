@@ -9,12 +9,14 @@ import { CoreModule } from '@/core/core.module';
 import { UserModule } from '@/modules/user/user.module';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { UserService } from '@/modules/user/user.service';
+import { ProjectsModule } from '@/modules/projects/projects.module';
 
 @Module({
   imports: [
     CommonModule,
     UserModule,
     AuthModule,
+    ProjectsModule,
     CoreModule,
     TerminusModule,
     ConfigModule.forRoot({

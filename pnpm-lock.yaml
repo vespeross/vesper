@@ -341,8 +341,6 @@ importers:
 
   packages/cli: {}
 
-  tooling/generators: {}
-
 packages:
 
   '@aashutoshrathi/word-wrap@1.2.6':

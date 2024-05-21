@@ -1,7 +1,12 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import {
   IUserService,
   createUserResponse,
+  getUser,
   isNewInstallResponse,
 } from './interfaces';
 import { CreateUserDto } from './dtos';
@@ -45,5 +50,21 @@ export class UserService implements IUserService {
     return {
       newInstall: users.length === 0,
     };
+  }
+
+  async getUser(cid: string): Promise<getUser> {
+    try {
+      const user = await this.prismaService.user.findUnique({
+        where: {
+          cid,
+        },
+      });
+      delete user.password_hash;
+      return {
+        user,
+      };
+    } catch (error) {
+      throw new NotFoundException('User not found');
+    }
   }
 }
