@@ -25,6 +25,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import DynamicBreadcrumb from "@/components/DynamicBreadcrumb"
 
 export function DashboardLayout() {
     // const { isLoading, user } = useAuth()
@@ -183,25 +184,8 @@ export function DashboardLayout() {
                             </nav>
                         </SheetContent>
                     </Sheet>
-                    <Breadcrumb className="hidden md:flex">
-                        <BreadcrumbList>
-                            <BreadcrumbItem>
-                                <BreadcrumbLink asChild>
-                                    <Link to="#">Dashboard</Link>
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbLink asChild>
-                                    <Link to="#">Orders</Link>
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage>Recent Orders</BreadcrumbPage>
-                            </BreadcrumbItem>
-                        </BreadcrumbList>
-                    </Breadcrumb>
+                    <DynamicBreadcrumb/>
+
                     <div className="relative ml-auto flex-1 md:grow-0">
                         <MagnifyingGlass className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
