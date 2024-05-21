@@ -1,6 +1,5 @@
 import { User } from "@/types";
 
-export type useAuthType = {
+export type useUserType = {
   user: User | null;
-  isLoading: boolean;
 };
