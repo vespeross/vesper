@@ -5,7 +5,6 @@ import {
   GetRecentProjectsResponse,
   GetProjectsResponse,
   GetProjectByIdResponse,
-  GetProjectByNameResponse,
   DeleteProjectResponse,
   SoftDeleteProjectResponse,
   EditProjectResponse,
@@ -16,17 +15,13 @@ export type IProjectService = {
     project: CreateProjectDto,
     userId: string,
   ) => Promise<CreateProjectResponse>;
-  getAllProjects: (userId: string) => Promise<GetProjectsResponse>;
+  getProjects: (userId: string, q: string) => Promise<GetProjectsResponse>;
   getLatestProjects: (userId: string) => Promise<GetLatestProjectsResponse>;
   getRecentProjects: (userId: string) => Promise<GetRecentProjectsResponse>;
   getProjectById: (
     projectId: string,
     userId: string,
   ) => Promise<GetProjectByIdResponse>;
-  getProjectByNames: (
-    query: string,
-    userId: string,
-  ) => Promise<GetProjectByNameResponse>;
   deleteProject: (
     projectId: string,
     userId: string,
