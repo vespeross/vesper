@@ -5,6 +5,14 @@ import { faker } from '@faker-js/faker';
 
 export class CreateProjectDto {
   @ApiProperty({
+    description: 'project id',
+    example: faker.word.noun(),
+  })
+  @IsNotEmpty()
+  @IsString()
+  key: string;
+
+  @ApiProperty({
     description: 'project name',
     example: faker.company.name(),
   })

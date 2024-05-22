@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+export * from "./slices";
 
 const persistConfig = {
   key: "root",
