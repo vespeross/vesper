@@ -7,9 +7,8 @@ import { useLoginMutation } from "@/store/slices/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as React from "react";
 import { useForm } from "react-hook-form";
-import { loginSchema } from "./validation";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { loginSchema } from "./validation";
 
 export const Login: React.FC = () => {
   const {
