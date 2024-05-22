@@ -7,13 +7,10 @@ import { PrismaService } from '@/common/services/prisma.service';
 export class ProjectsService implements IProjectService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async createProject({
-    project,
-    userId,
-  }: {
-    project: CreateProjectDto;
-    userId: string;
-  }): Promise<CreateProjectResponse> {
+  async createProject(
+    project: CreateProjectDto,
+    userId: string,
+  ): Promise<CreateProjectResponse> {
     try {
       const existingProject = await this.prismaService.project.findFirst({
         where: {

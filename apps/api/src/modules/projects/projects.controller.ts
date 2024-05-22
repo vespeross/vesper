@@ -5,19 +5,19 @@ import { AuthUser } from '@/core/decorators/user.decorator';
 import { IAuthPayload } from '../auth/interfaces';
 import { CreateProjectDto } from './dtos';
 
-@ApiTags('projects')
-@Controller('projects')
+@ApiTags('project')
+@Controller({
+  path: 'project',
+  version: '1',
+})
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
-  @Post()
+  @Post('create')
   async createProject(
     @AuthUser() user: IAuthPayload,
     @Body() body: CreateProjectDto,
   ) {
-    return this.projectsService.createProject({
-      project: body,
-      userId: user.cid,
-    });
+    return this.projectsService.createProject(body, user.cid);
   }
 }
