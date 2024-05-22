@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ProjectsService } from './projects.service';
 import { AuthUser } from '@/core/decorators/user.decorator';
@@ -19,5 +19,15 @@ export class ProjectsController {
     @Body() body: CreateProjectDto,
   ) {
     return this.projectsService.createProject(body, user.cid);
+  }
+
+  @Get('latest')
+  async getLatestProjects(@AuthUser() user: IAuthPayload) {
+    return this.projectsService.getLatestProjects(user.cid);
+  }
+
+  @Get('recent')
+  async getRecentProjects(@AuthUser() user: IAuthPayload) {
+    return this.projectsService.getRecentProjects(user.cid);
   }
 }
