@@ -11,3 +11,7 @@ export type GetLatestProjectsResponse = {
 export type GetRecentProjectsResponse = {
   projects: Project[];
 };
+
+export type GetProjectsResponse = {
+  projects: Project[];
+};

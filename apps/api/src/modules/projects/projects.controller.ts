@@ -21,6 +21,11 @@ export class ProjectsController {
     return this.projectsService.createProject(body, user.cid);
   }
 
+  @Get()
+  async getProjects(@AuthUser() user: IAuthPayload) {
+    return this.projectsService.getAllProjects(user.cid);
+  }
+
   @Get('latest')
   async getLatestProjects(@AuthUser() user: IAuthPayload) {
     return this.projectsService.getLatestProjects(user.cid);

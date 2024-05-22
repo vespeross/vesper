@@ -44,6 +44,17 @@ export class ProjectsService implements IProjectService {
     }
   }
 
+  public async getAllProjects(userId: string) {
+    const projects = await this.prismaService.project.findMany({
+      where: {
+        ownerId: userId,
+      },
+    });
+    return {
+      projects,
+    };
+  }
+
   public async getLatestProjects(
     userId: string,
   ): Promise<GetLatestProjectsResponse> {
