@@ -44,7 +44,7 @@ export class UserService implements IUserService {
   async isNewInstall(): Promise<isNewInstallResponse> {
     const users = await this.prismaService.user.findMany();
     return {
-      newInstall: users.length === 0,
+      isNewInstall: users.length === 0,
     };
   }
 
