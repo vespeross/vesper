@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
-import { ProjectsService } from './projects.service';
+import { ProjectService } from './project.service';
 import { AuthUser } from '@/core/decorators/user.decorator';
 import { IAuthPayload } from '../auth/interfaces';
 import { CreateProjectDto } from './dtos';
@@ -10,8 +10,8 @@ import { CreateProjectDto } from './dtos';
   path: 'project',
   version: '1',
 })
-export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) {}
+export class ProjectController {
+  constructor(private readonly projectsService: ProjectService) {}
 
   @Post('create')
   async createProject(

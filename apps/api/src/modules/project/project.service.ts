@@ -13,7 +13,7 @@ import { CreateProjectDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
 
 @Injectable()
-export class ProjectsService implements IProjectService {
+export class ProjectService implements IProjectService {
   constructor(private readonly prismaService: PrismaService) {}
 
   public async createProject(
