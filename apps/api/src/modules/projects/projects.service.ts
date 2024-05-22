@@ -6,6 +6,8 @@ import {
   GetRecentProjectsResponse,
   GetProjectByNameResponse,
   IProjectService,
+  DeleteProjectResponse,
+  SoftDeleteProjectResponse,
 } from './interfaces';
 import { CreateProjectDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
@@ -123,6 +125,55 @@ export class ProjectsService implements IProjectService {
     });
     return {
       projects,
+    };
+  }
+
+  public async deleteProject(
+    projectId: string,
+    userId: string,
+  ): Promise<DeleteProjectResponse> {
+    const project = await this.prismaService.project.findFirst({
+      where: {
+        cid: projectId,
+        ownerId: userId,
+      },
+    });
+    if (!project) {
+      throw new HttpException('Project not found', 404);
+    }
+    await this.prismaService.project.delete({
+      where: {
+        cid: projectId,
+      },
+    });
+    return {
+      project,
+    };
+  }
+
+  public async softDeleteProject(
+    projectId: string,
+    userId: string,
+  ): Promise<SoftDeleteProjectResponse> {
+    const project = await this.prismaService.project.findFirst({
+      where: {
+        cid: projectId,
+        ownerId: userId,
+      },
+    });
+    if (!project) {
+      throw new HttpException('Project not found', 404);
+    }
+    await this.prismaService.project.update({
+      where: {
+        cid: projectId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+    return {
+      project,
     };
   }
 }

@@ -42,6 +42,7 @@ model Project {
   owner       User     @relation(fields: [ownerId], references: [cid])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
 
   @@index([ownerId], name: "ownerId")
   @@schema("projects")
