@@ -5,11 +5,11 @@ import Projects from "@/pages/dashboard/projects";
 import Project from "@/pages/dashboard/projects/project";
 import { Dashboard } from "./pages/dashboard";
 import { TooltipProvider } from "./components/ui/tooltip";
-import { Login, Register } from "./pages/auth";
 import NotFound from "./pages/NotFound";
 import { useUser } from "./hooks";
 import { Home } from "./pages";
 import { Toaster } from "sonner"
+import Auth from "./pages/auth";
 export default function App() {
   const { isAuthenticated } = useUser();
   return (
@@ -25,10 +25,7 @@ export default function App() {
               <Route path="projects/:projectId" element={<Project />} />
             </Route>
           )}
-          <Route path="auth">
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-          </Route>
+          <Route path="/auth" element={<Auth />} />
         </Routes>
       </BrowserRouter>
       <Toaster />

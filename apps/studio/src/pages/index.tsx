@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/hooks";
-import * as React from "react";
+import { useEffect } from "react";
 
 export const Home: React.FC = () => {
   const { isAuthenticated } = useUser();
   const navigate = useNavigate();
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard");
+      return navigate("/dashboard");
     } else {
-      navigate("/auth/login");
+      return navigate("/auth");
     }
   }, [isAuthenticated, navigate]);
   return null;
