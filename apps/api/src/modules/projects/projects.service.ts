@@ -1,5 +1,10 @@
 import { ConflictException, HttpException, Injectable } from '@nestjs/common';
-import { CreateProjectResponse, IProjectService } from './interfaces';
+import {
+  CreateProjectResponse,
+  GetLatestProjectsResponse,
+  GetRecentProjectsResponse,
+  IProjectService,
+} from './interfaces';
 import { CreateProjectDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
 
@@ -37,5 +42,39 @@ export class ProjectsService implements IProjectService {
     } catch (error) {
       throw new HttpException(error.message, error.status || 500);
     }
+  }
+
+  public async getLatestProjects(
+    userId: string,
+  ): Promise<GetLatestProjectsResponse> {
+    const projects = await this.prismaService.project.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: {
+        ownerId: userId,
+      },
+      take: 10,
+    });
+    return {
+      projects,
+    };
+  }
+
+  public async getRecentProjects(
+    userId: string,
+  ): Promise<GetRecentProjectsResponse> {
+    const projects = await this.prismaService.project.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      where: {
+        ownerId: userId,
+      },
+      take: 5,
+    });
+    return {
+      projects,
+    };
   }
 }
