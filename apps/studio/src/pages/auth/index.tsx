@@ -3,9 +3,8 @@ import { Login } from './login';
 import { Register } from './register';
 
 export default function Auth() {
-    const { data } = useNewQuery({})
-    console.log(data.body.newInstall)
-    if (!data) return <div>hi</div>;
-    else if (data.body.newInstall) return <Register />
+    const { data } = useNewQuery()
+    if (!data) return null
+    else if (data.body.isNewInstall) return <Register />
     else return <Login />
 }
