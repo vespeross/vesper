@@ -3,17 +3,16 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import {
   IAuthPayload,
   IAuthResponse,
   ITokenResponse,
   IAuthService,
 } from './interfaces';
-import { PrismaService } from '@/common/services/prisma.service';
-import { JwtService } from '@nestjs/jwt';
-import { HelperHashService } from '@/common/services/hash.service';
 import { UserLoginDto } from './dtos';
-import { ConfigService } from '@nestjs/config';
+import { HelperHashService, PrismaService } from '@/common/services';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -52,8 +51,9 @@ export class AuthService implements IAuthService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    if (!this.hashService.match(password, user.password_hash)) {
-      throw new UnauthorizedException('Invalid credentials');
+    const match = await this.hashService.match(user.password_hash, password);
+    if (!match) {
+      throw new UnauthorizedException('Invalid Password');
     }
     const { accessToken, refreshToken } = await this.generateTokens({
       cid: user.cid,
@@ -90,7 +90,15 @@ export class AuthService implements IAuthService {
       refreshToken,
     });
   }
+
   public async verifyToken(accessToken: string): Promise<IAuthPayload> {
-    return this.jwtService.verify(accessToken);
+    try {
+      const { payload } = this.jwtService.verify(accessToken, {
+        secret: this.accessTokenSecret,
+      });
+      return Promise.resolve(payload);
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
   }
 }
