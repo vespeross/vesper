@@ -11,3 +11,8 @@ export type isNewInstallResponse = {
 export type getUser = {
   user: UserWithoutPassword;
 };
+
+export type inviteUserResponse = {
+  email: string;
+  inviteLink: string;
+};

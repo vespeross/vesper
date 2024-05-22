@@ -7,9 +7,10 @@ import {
   IUserService,
   createUserResponse,
   getUser,
+  inviteUserResponse,
   isNewInstallResponse,
 } from './interfaces';
-import { CreateUserDto } from './dtos';
+import { CreateUserDto, InviteUserDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
 import { HelperHashService } from '@/common/services/hash.service';
 
@@ -64,5 +65,32 @@ export class UserService implements IUserService {
     } catch (error) {
       throw new NotFoundException('User not found');
     }
+  }
+  acceptInvite(token: string, password: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  validateInviteToken(token: string): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+  validateToken(token: string, email: string): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  public async inviteUser(payload: InviteUserDto): Promise<inviteUserResponse> {
+    const otp = Math.random().toString(36).substring(2, 12);
+    const hashedCode = await this.hashService.createHash(
+      `${otp}+${payload.email}`,
+    );
+    await this.prismaService.invite.create({
+      data: {
+        email: payload.email,
+        code: hashedCode,
+      },
+    });
+    const inviteLink = `http://localhost:3000/invite?code=${hashedCode}`;
+    return {
+      email: payload.email,
+      inviteLink,
+    };
   }
 }
