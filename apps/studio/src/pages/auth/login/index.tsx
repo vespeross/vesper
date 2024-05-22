@@ -2,10 +2,8 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useUser } from "@/hooks";
 import { useLoginMutation } from "@/store/slices/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { loginSchema } from "./validation";
@@ -24,12 +22,6 @@ export const Login: React.FC = () => {
     await login(data);
     navigate("/dashboard");
   };
-  const { isAuthenticated } = useUser();
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
-  }, [isAuthenticated, navigate]);
   return (
     <div className="flex w-full h-screen">
       <div className="w-full md:w-1/2 flex items-center justify-center">

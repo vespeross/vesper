@@ -7,6 +7,7 @@ import { Navigate } from 'react-router-dom';
 export default function Auth() {
     const { data } = useNewQuery()
     const { isAuthenticated } = useUser()
+    console.log(isAuthenticated)
     if (isAuthenticated) return <Navigate to="/dashboard" />
     else if (!data) return null
     else if (data.body.isNewInstall) return <Register />
