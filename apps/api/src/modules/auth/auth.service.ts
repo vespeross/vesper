@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -49,11 +45,11 @@ export class AuthService implements IAuthService {
       },
     });
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new UnauthorizedException('Invalid Credentials');
     }
     const match = await this.hashService.match(user.password_hash, password);
     if (!match) {
-      throw new UnauthorizedException('Invalid Password');
+      throw new UnauthorizedException('Invalid Credentials');
     }
     const { accessToken, refreshToken } = await this.generateTokens({
       cid: user.cid,

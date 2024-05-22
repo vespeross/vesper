@@ -9,11 +9,11 @@ import {
   GetLatestProjectsResponse,
   GetProjectByIdResponse,
   GetRecentProjectsResponse,
-  GetProjectByNameResponse,
   IProjectService,
   DeleteProjectResponse,
   SoftDeleteProjectResponse,
   GenericProjectResponse,
+  GenericProjectsResponse,
 } from './interfaces';
 import { CreateProjectDto, EditProjectDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
@@ -55,7 +55,34 @@ export class ProjectService implements IProjectService {
     }
   }
 
-  public async getAllProjects(userId: string) {
+  public async getProjects(
+    userId: string,
+    q: string,
+  ): Promise<GenericProjectsResponse> {
+    if (q) {
+      const projects = await this.prismaService.project.findMany({
+        where: {
+          ownerId: userId,
+          OR: [
+            {
+              name: {
+                contains: q,
+                mode: 'insensitive',
+              },
+            },
+            {
+              description: {
+                contains: q,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        },
+      });
+      return {
+        projects,
+      };
+    }
     const projects = await this.prismaService.project.findMany({
       where: {
         ownerId: userId,
@@ -81,23 +108,6 @@ export class ProjectService implements IProjectService {
     }
     return {
       project,
-    };
-  }
-
-  public async getProjectByNames(
-    query: string,
-    userId: string,
-  ): Promise<GetProjectByNameResponse> {
-    const projects = await this.prismaService.project.findMany({
-      where: {
-        name: {
-          contains: query,
-        },
-        ownerId: userId,
-      },
-    });
-    return {
-      projects,
     };
   }
 
