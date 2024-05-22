@@ -69,7 +69,7 @@ export class AuthService implements IAuthService {
   public async generateTokens(user: IAuthPayload): Promise<ITokenResponse> {
     const accessToken = this.jwtService.sign(
       {
-        payload: user.cid,
+        cid: user.cid,
       },
       {
         expiresIn: this.accessTokenExp,
@@ -78,7 +78,7 @@ export class AuthService implements IAuthService {
     );
     const refreshToken = this.jwtService.sign(
       {
-        payload: user.cid,
+        cid: user.cid,
       },
       {
         expiresIn: this.refreshTokenExp,
