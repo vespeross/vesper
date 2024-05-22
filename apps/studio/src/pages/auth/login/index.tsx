@@ -22,6 +22,7 @@ export const Login: React.FC = () => {
   });
   const dispatch = useStoreDispatch();
   const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
+  console.log(isLoading)
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
       const { data: loginData } = await login({
@@ -80,7 +81,9 @@ export const Login: React.FC = () => {
               />
               <ErrorMessage error={errors.password?.message} />
             </div>
-            <Button type="submit" className="w-full">
+            <Button
+              disabled={isLoading}
+              type="submit" className="w-full">
               Login
             </Button>
 

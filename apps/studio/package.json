@@ -10,7 +10,6 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "@million/lint": "1.0.0-rc.1",
     "@hookform/resolvers": "^3.4.2",
     "@phosphor-icons/react": "^2.1.5",
     "@radix-ui/react-context-menu": "^2.1.5",
@@ -28,7 +27,6 @@
     "axios": "^1.7.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "million": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.5",
