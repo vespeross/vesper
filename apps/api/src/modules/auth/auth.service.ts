@@ -11,7 +11,7 @@ import {
   ITokenResponse,
   IAuthService,
 } from './interfaces';
-import { UserLoginDto } from './dtos';
+import { AcceptInviteDto, UserLoginDto } from './dtos';
 import { HelperHashService, PrismaService } from '@/common/services';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from '../user/user.service';
@@ -131,5 +131,21 @@ export class AuthService implements IAuthService {
       }
       throw new Error('Something went wrong');
     }
+  }
+
+  public async acceptInvite(data: AcceptInviteDto): Promise<IAuthResponse> {
+    const { email } = await this.jwtService.verifyAsync(data.token);
+    const invite = await this.prismaService.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!invite) {
+      throw new UnauthorizedException('Invalid token');
+    }
+    if (invite.email !== data.email) {
+      throw new UnauthorizedException('Invalid token');
+    }
+    return await this.signup(data);
   }
 }
