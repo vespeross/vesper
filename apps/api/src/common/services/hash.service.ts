@@ -8,11 +8,11 @@ export class HelperHashService {
     this.salt = bcrypt.genSaltSync();
   }
 
-  public createHash(password: string): string {
-    return bcrypt.hashSync(password, this.salt);
+  public async createHash(password: string): Promise<string> {
+    return await bcrypt.hash(password, this.salt);
   }
 
-  public match(hash: string, password: string): boolean {
-    return bcrypt.compareSync(password, hash);
+  public async match(hash: string, password: string): Promise<boolean> {
+    return await bcrypt.compare(password, hash);
   }
 }
