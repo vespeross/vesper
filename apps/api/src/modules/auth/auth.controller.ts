@@ -2,12 +2,11 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserLoginDto } from './dtos';
 import { ApiTags } from '@nestjs/swagger';
-import { UserService } from '../user/user.service';
-import { CreateUserDto } from '../user/dtos';
 import { Public } from '@/core/decorators/public.decorator';
 import { AuthJwtRefreshGuard } from './guards/jwt.refresh.guard';
 import { AuthUser } from '@/core/decorators/user.decorator';
 import { IAuthPayload } from './interfaces';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @ApiTags('auth')
 @Controller({
@@ -15,10 +14,7 @@ import { IAuthPayload } from './interfaces';
   version: '1',
 })
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Public()
   @Post('login')
@@ -29,7 +25,7 @@ export class AuthController {
   @Public()
   @Post('signup')
   public signup(@Body() payload: CreateUserDto) {
-    return this.userService.createUser(payload);
+    return this.authService.signup(payload);
   }
 
   @Public()

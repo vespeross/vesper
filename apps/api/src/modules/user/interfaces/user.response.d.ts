@@ -1,9 +1,5 @@
 import { UserWithoutPassword } from '@/types';
 
-export type createUserResponse = {
-  user: UserWithoutPassword;
-};
-
 export type isNewInstallResponse = {
   isNewInstall: boolean;
 };
@@ -15,4 +11,12 @@ export type getUser = {
 export type inviteUserResponse = {
   email: string;
   inviteLink: string;
+};
+
+export type validateInviteTokenResponse = {
+  isValid: boolean;
+};
+
+export type acceptInviteResponse = {
+  user: UserWithoutPassword;
 };
