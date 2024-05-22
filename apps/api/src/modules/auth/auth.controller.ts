@@ -1,12 +1,11 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UserLoginDto } from './dtos';
+import { UserLoginDto, AcceptInviteDto, CreateUserDto } from './dtos';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from '@/core/decorators/public.decorator';
 import { AuthJwtRefreshGuard } from './guards/jwt.refresh.guard';
 import { AuthUser } from '@/core/decorators/user.decorator';
 import { IAuthPayload } from './interfaces';
-import { CreateUserDto } from './dtos/create-user.dto';
 
 @ApiTags('auth')
 @Controller({
@@ -35,5 +34,11 @@ export class AuthController {
     return this.authService.generateTokens({
       cid: user.cid,
     });
+  }
+
+  @Public()
+  @Post('accept-invite')
+  public acceptInvite(@Body() payload: AcceptInviteDto) {
+    return this.authService.acceptInvite(payload);
   }
 }

@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   IUserService,
-  acceptInviteResponse,
   getUser,
   inviteUserResponse,
   isNewInstallResponse,
@@ -81,24 +80,5 @@ export class UserService implements IUserService {
         isValid: false,
       };
     }
-  }
-
-  public async acceptInvite(
-    token: string,
-    password: string,
-  ): Promise<acceptInviteResponse> {
-    const { email } = await this.jwtService.verifyAsync(token);
-    const password_hash = await this.hashService.createHash(password);
-    const user = await this.prismaService.user.create({
-      data: {
-        email,
-        password_hash,
-        role: 'MEMBER',
-      },
-    });
-    delete user.password_hash;
-    return {
-      user,
-    };
   }
 }

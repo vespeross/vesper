@@ -16,7 +16,3 @@ export type inviteUserResponse = {
 export type validateInviteTokenResponse = {
   isValid: boolean;
 };
-
-export type acceptInviteResponse = {
-  user: UserWithoutPassword;
-};
