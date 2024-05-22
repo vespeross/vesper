@@ -5,7 +5,7 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "@/store";
-import { actions } from "@/store/slices/auth";
+// import { actions } from "@/store/slices/auth";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:8000/api/v1",
@@ -20,9 +20,9 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-type RefreshResponse = {
-  access_token: string;
-};
+// type RefreshResponse = {
+//   access_token: string;
+// };
 
 const baseQueryWithReAuth = async (
   args: string | FetchArgs,

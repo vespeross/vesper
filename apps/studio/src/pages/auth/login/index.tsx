@@ -18,7 +18,7 @@ export const Login: React.FC = () => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
   const onSubmit = async (data: { email: string; password: string }) => {
     await login(data);
