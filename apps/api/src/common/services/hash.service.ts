@@ -3,8 +3,13 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class HelperHashService {
+  public salt: string;
+  constructor() {
+    this.salt = bcrypt.genSaltSync();
+  }
+
   public createHash(password: string): string {
-    return bcrypt.hashSync(password, 10);
+    return bcrypt.hashSync(password, this.salt);
   }
 
   public match(hash: string, password: string): boolean {

@@ -1,10 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserLoginDto } from './dtos';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
 import { CreateUserDto } from '../user/dtos';
 import { Public } from '@/core/decorators/public.decorator';
+import { AuthJwtRefreshGuard } from './guards/jwt.refresh.guard';
+import { AuthUser } from '@/core/decorators/user.decorator';
+import { IAuthPayload } from './interfaces';
 
 @ApiTags('auth')
 @Controller({
@@ -27,5 +30,14 @@ export class AuthController {
   @Post('signup')
   public signup(@Body() payload: CreateUserDto) {
     return this.userService.createUser(payload);
+  }
+
+  @Public()
+  @UseGuards(AuthJwtRefreshGuard)
+  @Get('refresh')
+  public refresh(@AuthUser() user: IAuthPayload) {
+    return this.authService.generateTokens({
+      cid: user.cid,
+    });
   }
 }

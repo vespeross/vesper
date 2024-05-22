@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { faker } from '@faker-js/faker';
 
@@ -20,6 +20,6 @@ export class UserLoginDto {
     }),
   })
   @IsNotEmpty()
-  @IsStrongPassword()
+  @IsString()
   password: string;
 }
