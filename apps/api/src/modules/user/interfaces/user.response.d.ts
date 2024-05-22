@@ -5,7 +5,7 @@ export type createUserResponse = {
 };
 
 export type isNewInstallResponse = {
-  newInstall: boolean;
+  isNewInstall: boolean;
 };
 
 export type getUser = {

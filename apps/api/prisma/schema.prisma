@@ -18,10 +18,18 @@ enum DatabaseType {
   @@schema("databases")
 }
 
+enum Role {
+  OWNER
+  MEMBER
+
+  @@schema("auth")
+}
+
 model User {
   cid           String    @id @default(cuid())
   email         String    @unique
   password_hash String?
+  role          Role      @default(MEMBER)
   Project       Project[]
 
   @@index([email], name: "email")
