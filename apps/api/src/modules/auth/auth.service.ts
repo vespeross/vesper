@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import {
   IAuthPayload,
   IAuthResponse,
@@ -38,7 +42,7 @@ export class AuthService implements IAuthService {
     );
   }
 
-  async login(userLoginDto: UserLoginDto): Promise<IAuthResponse> {
+  public async login(userLoginDto: UserLoginDto): Promise<IAuthResponse> {
     const { email, password } = userLoginDto;
     const user = await this.prismaService.user.findUnique({
       where: {
@@ -46,9 +50,9 @@ export class AuthService implements IAuthService {
       },
     });
     if (!user) {
-      throw new UnauthorizedException('User not found');
+      throw new NotFoundException('User not found');
     }
-    if (this.hashService.match(password, user.password_hash)) {
+    if (!this.hashService.match(password, user.password_hash)) {
       throw new UnauthorizedException('Invalid credentials');
     }
     const { accessToken, refreshToken } = await this.generateTokens({
@@ -62,7 +66,7 @@ export class AuthService implements IAuthService {
     };
   }
 
-  generateTokens(user: IAuthPayload): Promise<ITokenResponse> {
+  public async generateTokens(user: IAuthPayload): Promise<ITokenResponse> {
     const accessToken = this.jwtService.sign(
       {
         payload: user.cid,
@@ -86,7 +90,7 @@ export class AuthService implements IAuthService {
       refreshToken,
     });
   }
-  verifyToken(accessToken: string): Promise<IAuthPayload> {
+  public async verifyToken(accessToken: string): Promise<IAuthPayload> {
     return this.jwtService.verify(accessToken);
   }
 }
