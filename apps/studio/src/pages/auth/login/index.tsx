@@ -2,9 +2,8 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useStoreDispatch, useUser } from "@/hooks";
-import { actions as authActions, useLoginMutation } from "@/store/slices/auth";
-import { useNewQuery } from "@/store/slices/general";
+import { useUser } from "@/hooks";
+import { useLoginMutation } from "@/store/slices/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -20,31 +19,12 @@ export const Login: React.FC = () => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const dispatch = useStoreDispatch();
   const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
-  console.log(isLoading);
   const navigate = useNavigate();
   const onSubmit = async (data: { email: string; password: string }) => {
-    try {
-      const { data: response } = await login({
-        email: data.email,
-        password: data.password,
-      });
-      if (!response) return;
-      navigate("/dashboard");
-      dispatch(
-        authActions.addUser({
-          user: response.body.user,
-          access_token: response.body.accessToken,
-        })
-      );
-    } catch (error) {
-      console.error("error", error);
-    }
+    await login(data);
+    navigate("/dashboard");
   };
-
-  const { data } = useNewQuery({});
-  const { user } = useUser();
   const { isAuthenticated } = useUser();
   React.useEffect(() => {
     if (isAuthenticated) {
