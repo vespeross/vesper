@@ -7,7 +7,7 @@ import { useLoginMutation } from "@/store/slices/auth";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "./validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useStoreDispatch } from "@/hooks";
+import { useStoreDispatch, useUser } from "@/hooks";
 import { actions as authActions } from "@/store/slices/auth";
 import { useNewQuery } from "@/store/slices/general";
 import ErrorMessage from "@/components/ErrorMessage";
@@ -22,14 +22,19 @@ export const Login: React.FC = () => {
   });
   const dispatch = useStoreDispatch();
   const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
-  console.log(isLoading)
+  console.log(isLoading);
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      const { data: loginData } = await login({
+      const { data: response } = await login({
         email: data.email,
         password: data.password,
-      }).unwrap();
-      dispatch(authActions.addUser(loginData));
+      });
+      dispatch(
+        authActions.addUser({
+          user: response.body.user,
+          access_token: response.body.accessToken,
+        })
+      );
     } catch (error) {
       console.error(error);
     }
@@ -41,10 +46,15 @@ export const Login: React.FC = () => {
   });
   const { data } = useNewQuery({});
   console.log(data);
+  const { user } = useUser();
+  console.log({ user });
   return (
     <div className="flex w-full h-screen">
       <div className="w-full md:w-2/5 flex items-center justify-center">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6  w-full max-w-sm p-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6  w-full max-w-sm p-5"
+        >
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-muted-foreground">
@@ -81,21 +91,17 @@ export const Login: React.FC = () => {
               />
               <ErrorMessage error={errors.password?.message} />
             </div>
-            <Button
-              disabled={isLoading}
-              type="submit" className="w-full">
+            <Button disabled={isLoading} type="submit" className="w-full">
               Login
             </Button>
-
           </div>
-
         </form>
-
-
-
       </div>
-      <img src="https://source.unsplash.com/1600x900?black" className="w-3/5 hidden md:block h-full" alt="" />
-
+      <img
+        src="https://source.unsplash.com/1600x900?black"
+        className="w-3/5 hidden md:block h-full"
+        alt=""
+      />
     </div>
 
     // <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-screen">
