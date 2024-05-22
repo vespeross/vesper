@@ -1,15 +1,5 @@
-import * as React from "react";
-import {
-  ChartLine,
-  Gear,
-  House,
-  Lightning,
-  MagnifyingGlass,
-  Package,
-  ShoppingBag,
-  Users,
-} from "@phosphor-icons/react";
-import { Link, Outlet } from "react-router-dom";
+import DynamicBreadcrumb from "@/components/DynamicBreadcrumb";
+import Command from "@/components/command";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -19,16 +9,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import DynamicBreadcrumb from "@/components/DynamicBreadcrumb";
+import {
+  ChartLine,
+  Gear,
+  House,
+  Lightning,
+  Package,
+  ShoppingBag,
+  Users,
+  Command as CommandIcon,
+} from "@phosphor-icons/react";
+import { Link, Outlet } from "react-router-dom";
 
 export const DashboardLayout: React.FC = () => {
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -174,13 +174,20 @@ export const DashboardLayout: React.FC = () => {
           </Sheet>
           <DynamicBreadcrumb />
 
-          <div className="relative ml-auto flex-1 md:grow-0">
-            <MagnifyingGlass className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
-            />
+          <div className="relative ml-auto w-fit flex items-center gap-2">
+            <span>
+
+              Press
+            </span>
+            <div className="flex gap-2 items-center bg-neutral-200 px-2.5 py-0.5 rounded-md border">
+
+              <CommandIcon weight="duotone" />
+              <span>
+
+                + K
+              </span>
+            </div>
+            to open command palette
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -211,6 +218,8 @@ export const DashboardLayout: React.FC = () => {
         <main className="p-4 sm:px-6 sm:py-0">
           <Outlet />
         </main>
+        <Command />
+
       </div>
     </div>
   );
