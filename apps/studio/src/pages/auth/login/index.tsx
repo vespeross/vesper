@@ -51,7 +51,7 @@ export const Login: React.FC = () => {
               Enter your email below to login to your account
             </p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -64,15 +64,8 @@ export const Login: React.FC = () => {
               <ErrorMessage error={errors.email?.message} />
             </div>
             <div className="flex flex-col gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  to="/forgot-password"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
+              <Label htmlFor="password">Password</Label>
+
               <Input
                 id="password"
                 type="password"
