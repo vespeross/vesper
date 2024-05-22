@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -9,6 +13,8 @@ import {
 } from './interfaces';
 import { UserLoginDto } from './dtos';
 import { HelperHashService, PrismaService } from '@/common/services';
+import { CreateUserDto } from './dtos/create-user.dto';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -16,6 +22,7 @@ export class AuthService implements IAuthService {
   private readonly refreshTokenSecret: string;
   private readonly accessTokenExp: string;
   private readonly refreshTokenExp: string;
+  private readonly userService: UserService;
 
   constructor(
     private readonly prismaService: PrismaService,
@@ -95,6 +102,34 @@ export class AuthService implements IAuthService {
       return Promise.resolve(payload);
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
+    }
+  }
+
+  public async signup(data: CreateUserDto): Promise<IAuthResponse> {
+    const password_hash = await this.hashService.createHash(data.password);
+    const userCount = await this.prismaService.user.count();
+    try {
+      const user = await this.prismaService.user.create({
+        data: {
+          email: data.email,
+          password_hash,
+          role: userCount === 0 ? 'OWNER' : 'MEMBER',
+        },
+      });
+      delete user.password_hash;
+      const { accessToken, refreshToken } = await this.generateTokens({
+        cid: user.cid,
+      });
+      return {
+        accessToken,
+        refreshToken,
+        user,
+      };
+    } catch (error) {
+      if (error.code === 'P2002') {
+        throw new ConflictException('Email already exists');
+      }
+      throw new Error('Something went wrong');
     }
   }
 }
