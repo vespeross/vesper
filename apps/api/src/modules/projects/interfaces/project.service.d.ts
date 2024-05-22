@@ -6,6 +6,8 @@ import {
   GetProjectsResponse,
   GetProjectByIdResponse,
   GetProjectByNameResponse,
+  DeleteProjectResponse,
+  SoftDeleteProjectResponse,
 } from './project.response';
 
 export type IProjectService = {
@@ -24,4 +26,12 @@ export type IProjectService = {
     query: string,
     userId: string,
   ) => Promise<GetProjectByNameResponse>;
+  deleteProject: (
+    projectId: string,
+    userId: string,
+  ) => Promise<DeleteProjectResponse>;
+  softDeleteProject: (
+    projectId: string,
+    userId: string,
+  ) => Promise<SoftDeleteProjectResponse>;
 };

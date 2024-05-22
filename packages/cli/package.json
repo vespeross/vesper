@@ -1,3 +1,39 @@
 {
-  "name": "cli"
+  "name": "@vesper/cli",
+  "version": "0.0.1",
+  "description": "Command Line utility to interact with your vesper account",
+  "main": "dist/index.js",
+  "bin": {
+    "vesper": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jabedzaman/vesper.git"
+  },
+  "keywords": [
+    "cli",
+    "vesper",
+    "databases"
+  ],
+  "author": "hi@jabed.dev",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jabedzaman/vesper/issues"
+  },
+  "homepage": "https://github.com/jabedzaman/vesper#readme",
+  "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "figlet": "^1.7.0"
+  }
 }

@@ -23,3 +23,11 @@ export type GetProjectByIdResponse = {
 export type GetProjectByNameResponse = {
   projects: Project[];
 };
+
+export type DeleteProjectResponse = {
+  project: Project;
+};
+
+export type SoftDeleteProjectResponse = {
+  project: Project;
+};
