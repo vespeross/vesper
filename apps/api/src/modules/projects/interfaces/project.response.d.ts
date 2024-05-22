@@ -15,3 +15,11 @@ export type GetRecentProjectsResponse = {
 export type GetProjectsResponse = {
   projects: Project[];
 };
+
+export type GetProjectByIdResponse = {
+  project: Project;
+};
+
+export type GetProjectByNameResponse = {
+  projects: Project[];
+};

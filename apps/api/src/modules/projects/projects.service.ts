@@ -2,7 +2,9 @@ import { ConflictException, HttpException, Injectable } from '@nestjs/common';
 import {
   CreateProjectResponse,
   GetLatestProjectsResponse,
+  GetProjectByIdResponse,
   GetRecentProjectsResponse,
+  GetProjectByNameResponse,
   IProjectService,
 } from './interfaces';
 import { CreateProjectDto } from './dtos';
@@ -12,7 +14,7 @@ import { PrismaService } from '@/common/services/prisma.service';
 export class ProjectsService implements IProjectService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async createProject(
+  public async createProject(
     project: CreateProjectDto,
     userId: string,
   ): Promise<CreateProjectResponse> {
@@ -47,6 +49,41 @@ export class ProjectsService implements IProjectService {
   public async getAllProjects(userId: string) {
     const projects = await this.prismaService.project.findMany({
       where: {
+        ownerId: userId,
+      },
+    });
+    return {
+      projects,
+    };
+  }
+
+  public async getProjectById(
+    projectId: string,
+    userId: string,
+  ): Promise<GetProjectByIdResponse> {
+    const project = await this.prismaService.project.findFirst({
+      where: {
+        cid: projectId,
+        ownerId: userId,
+      },
+    });
+    if (!project) {
+      throw new HttpException('Project not found', 404);
+    }
+    return {
+      project,
+    };
+  }
+
+  public async getProjectByNames(
+    query: string,
+    userId: string,
+  ): Promise<GetProjectByNameResponse> {
+    const projects = await this.prismaService.project.findMany({
+      where: {
+        name: {
+          contains: query,
+        },
         ownerId: userId,
       },
     });

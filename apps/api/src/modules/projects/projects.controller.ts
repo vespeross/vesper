@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { ProjectsService } from './projects.service';
 import { AuthUser } from '@/core/decorators/user.decorator';
 import { IAuthPayload } from '../auth/interfaces';
@@ -24,6 +24,26 @@ export class ProjectsController {
   @Get()
   async getProjects(@AuthUser() user: IAuthPayload) {
     return this.projectsService.getAllProjects(user.cid);
+  }
+
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @Get(':id')
+  async getProjectById(@AuthUser() user: IAuthPayload, id: string) {
+    return this.projectsService.getProjectById(id, user.cid);
+  }
+
+  @ApiParam({
+    name: 'query',
+    required: true,
+    type: String,
+  })
+  @Get('query/:query')
+  async getProjectByName(@AuthUser() user: IAuthPayload, query: string) {
+    return this.projectsService.getProjectByNames(query, user.cid);
   }
 
   @Get('latest')

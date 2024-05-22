@@ -4,6 +4,8 @@ import {
   GetLatestProjectsResponse,
   GetRecentProjectsResponse,
   GetProjectsResponse,
+  GetProjectByIdResponse,
+  GetProjectByNameResponse,
 } from './project.response';
 
 export type IProjectService = {
@@ -14,4 +16,12 @@ export type IProjectService = {
   getAllProjects: (userId: string) => Promise<GetProjectsResponse>;
   getLatestProjects: (userId: string) => Promise<GetLatestProjectsResponse>;
   getRecentProjects: (userId: string) => Promise<GetRecentProjectsResponse>;
+  getProjectById: (
+    projectId: string,
+    userId: string,
+  ) => Promise<GetProjectByIdResponse>;
+  getProjectByNames: (
+    query: string,
+    userId: string,
+  ) => Promise<GetProjectByNameResponse>;
 };
