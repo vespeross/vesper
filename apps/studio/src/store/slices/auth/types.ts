@@ -17,3 +17,13 @@ export type LoginPayload = {
   email: string;
   password: string;
 };
+
+export type LoginAPIResponse = {
+  body: LoginResponse;
+};
+
+export type LoginResponse = {
+  accessToken: string;
+  refreshToken: string;
+  user: User;
+};
