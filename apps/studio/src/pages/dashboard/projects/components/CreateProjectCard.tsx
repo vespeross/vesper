@@ -21,7 +21,7 @@ export default function CreateProjectCard() {
             <DialogTrigger>
 
 
-                <Card className='border-dashed shadow-none border-zinc-300 flex h-full gap-2 items-center justify-center text-lg text-muted-foreground'>
+                <Card className='border-dashed shadow-none border-zinc-300 flex h-full gap-2 items-center justify-center text-lg text-muted-foreground min-h-36'>
                     <PlusCircle />
                     <p>Create New Project</p>
                 </Card>

@@ -1,16 +1,14 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
+import ErrorMessage from "@/components/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useLoginMutation } from "@/store/slices/auth";
+import { useStoreDispatch, useUser } from "@/hooks";
+import { actions as authActions, useLoginMutation } from "@/store/slices/auth";
+import { useNewQuery } from "@/store/slices/general";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "./validation";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useStoreDispatch, useUser } from "@/hooks";
-import { actions as authActions } from "@/store/slices/auth";
-import { useNewQuery } from "@/store/slices/general";
-import ErrorMessage from "@/components/ErrorMessage";
 
 export const Login: React.FC = () => {
   const {
