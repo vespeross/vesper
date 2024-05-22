@@ -18,13 +18,12 @@ export default function App() {
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" index element={<Home />} />
-          {isAuthenticated && (
-            <Route path="dashboard" element={<DashboardLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="projects/:projectId" element={<Project />} />
-            </Route>
-          )}
+          <Route path="dashboard" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="projects/:projectId" element={<Project />} />
+          </Route>
+
           <Route path="/auth" element={<Auth />} />
         </Routes>
       </BrowserRouter>

@@ -15,19 +15,22 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useUser } from "@/hooks";
 import {
   ChartLine,
+  Command as CommandIcon,
   Gear,
   House,
   Lightning,
   Package,
   ShoppingBag,
   Users,
-  Command as CommandIcon,
 } from "@phosphor-icons/react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 
 export const DashboardLayout: React.FC = () => {
+  const { isAuthenticated } = useUser()
+  if (!isAuthenticated) return <Navigate to="/auth" />
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
