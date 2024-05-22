@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { ProjectService } from './project.service';
 import { AuthUser } from '@/core/decorators/user.decorator';
 import { IAuthPayload } from '../auth/interfaces';
-import { CreateProjectDto } from './dtos';
+import { CreateProjectDto, EditProjectDto } from './dtos';
 
 @ApiTags('project')
 @Controller({
@@ -54,5 +54,34 @@ export class ProjectController {
   @Get('recent')
   async getRecentProjects(@AuthUser() user: IAuthPayload) {
     return this.projectsService.getRecentProjects(user.cid);
+  }
+
+  @Patch('edit/:id')
+  async editProject(
+    @AuthUser() user: IAuthPayload,
+    @Body() body: EditProjectDto,
+    id: string,
+  ) {
+    return this.projectsService.editProject(id, body, user.cid);
+  }
+
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @Delete('permanent-delete/:id')
+  async deleteProject(@AuthUser() user: IAuthPayload, id: string) {
+    return this.projectsService.deleteProject(id, user.cid);
+  }
+
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+  })
+  @Delete('delete/:id')
+  async softDeleteProject(@AuthUser() user: IAuthPayload, id: string) {
+    return this.projectsService.softDeleteProject(id, user.cid);
   }
 }

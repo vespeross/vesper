@@ -10,7 +10,6 @@ datasource db {
   schemas = ["public", "auth", "projects", "databases"]
 }
 
-
 enum DatabaseType {
   POSTGRES
   MYSQL
@@ -31,7 +30,8 @@ model User {
 
 model Project {
   cid         String     @id @default(cuid())
-  name        String     @unique
+  key         String     @unique
+  name        String
   description String?
   ownerId     String
   owner       User       @relation(fields: [ownerId], references: [cid])
@@ -62,12 +62,13 @@ model Database {
 
 model DatabaseUser {
   cid        String   @id @default(cuid())
-  username   String
+  username   String   @unique
   password   String
   databaseId String
   database   Database @relation(fields: [databaseId], references: [cid])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  @@index([databaseId], name: "databaseId")
   @@schema("databases")
 }

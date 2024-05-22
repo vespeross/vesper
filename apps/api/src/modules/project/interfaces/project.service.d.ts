@@ -1,4 +1,4 @@
-import { CreateProjectDto } from '../dtos';
+import { CreateProjectDto, EditProjectDto } from '../dtos';
 import {
   CreateProjectResponse,
   GetLatestProjectsResponse,
@@ -8,6 +8,7 @@ import {
   GetProjectByNameResponse,
   DeleteProjectResponse,
   SoftDeleteProjectResponse,
+  EditProjectResponse,
 } from './project.response';
 
 export type IProjectService = {
@@ -34,4 +35,9 @@ export type IProjectService = {
     projectId: string,
     userId: string,
   ) => Promise<SoftDeleteProjectResponse>;
+  editProject: (
+    projectId: string,
+    project: EditProjectDto,
+    userId: string,
+  ) => Promise<EditProjectResponse>;
 };

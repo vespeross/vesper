@@ -1,4 +1,9 @@
-import { ConflictException, HttpException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import {
   CreateProjectResponse,
   GetLatestProjectsResponse,
@@ -8,8 +13,9 @@ import {
   IProjectService,
   DeleteProjectResponse,
   SoftDeleteProjectResponse,
+  GenericProjectResponse,
 } from './interfaces';
-import { CreateProjectDto } from './dtos';
+import { CreateProjectDto, EditProjectDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
 
 @Injectable()
@@ -23,7 +29,7 @@ export class ProjectService implements IProjectService {
     try {
       const existingProject = await this.prismaService.project.findFirst({
         where: {
-          name: project.name,
+          key: project.key,
         },
       });
       if (existingProject) {
@@ -31,6 +37,7 @@ export class ProjectService implements IProjectService {
       }
       const createdProject = await this.prismaService.project.create({
         data: {
+          key: project.key,
           name: project.name,
           description: project.description,
           owner: {
@@ -70,7 +77,7 @@ export class ProjectService implements IProjectService {
       },
     });
     if (!project) {
-      throw new HttpException('Project not found', 404);
+      throw new NotFoundException('Project not found');
     }
     return {
       project,
@@ -125,6 +132,34 @@ export class ProjectService implements IProjectService {
     });
     return {
       projects,
+    };
+  }
+
+  public async editProject(
+    projectId: string,
+    project: EditProjectDto,
+    userId: string,
+  ): Promise<GenericProjectResponse> {
+    const existingProject = await this.prismaService.project.findFirst({
+      where: {
+        cid: projectId,
+        ownerId: userId,
+      },
+    });
+    if (!existingProject) {
+      throw new NotFoundException('Project not found');
+    }
+    const updatedProject = await this.prismaService.project.update({
+      where: {
+        cid: projectId,
+      },
+      data: {
+        name: project.name,
+        description: project.description,
+      },
+    });
+    return {
+      project: updatedProject,
     };
   }
 

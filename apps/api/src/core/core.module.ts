@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { LoggingMiddleware } from './middlewares/logging.middleware';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingMiddleware } from './middlewares/logging.middleware';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 @Module({

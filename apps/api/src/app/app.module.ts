@@ -2,14 +2,12 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import configs from '@/config';
-import { CommonModule } from '@/common/common.module';
-import { PrismaService } from '@services/prisma.service';
 import { TerminusModule } from '@nestjs/terminus';
 import { CoreModule } from '@/core/core.module';
-import { UserModule } from '@/modules/user/user.module';
-import { AuthModule } from '@/modules/auth/auth.module';
+import { CommonModule } from '@/common/common.module';
+import { AuthModule, ProjectModule, UserModule } from '@/modules';
+import { PrismaService } from '@services/prisma.service';
 import { UserService } from '@/modules/user/user.service';
-import { ProjectModule } from '@/modules/project/project.module';
 
 @Module({
   imports: [

@@ -1,33 +1,19 @@
 import { Project } from '@prisma/client';
 
-export type CreateProjectResponse = {
+type GenericProjectResponse = {
   project: Project;
 };
 
-export type GetLatestProjectsResponse = {
+type GenericProjectsResponse = {
   projects: Project[];
 };
 
-export type GetRecentProjectsResponse = {
-  projects: Project[];
-};
-
-export type GetProjectsResponse = {
-  projects: Project[];
-};
-
-export type GetProjectByIdResponse = {
-  project: Project;
-};
-
-export type GetProjectByNameResponse = {
-  projects: Project[];
-};
-
-export type DeleteProjectResponse = {
-  project: Project;
-};
-
-export type SoftDeleteProjectResponse = {
-  project: Project;
-};
+export type CreateProjectResponse = GenericProjectResponse;
+export type GetLatestProjectsResponse = GenericProjectsResponse;
+export type GetRecentProjectsResponse = GenericProjectsResponse;
+export type GetProjectsResponse = GenericProjectsResponse;
+export type GetProjectByIdResponse = GenericProjectResponse;
+export type GetProjectByNameResponse = GenericProjectsResponse;
+export type DeleteProjectResponse = GenericProjectResponse;
+export type SoftDeleteProjectResponse = GenericProjectResponse;
+export type EditProjectResponse = GenericProjectResponse;

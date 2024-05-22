@@ -1,9 +1,9 @@
-import { statusMessages } from '@/app/app.constants';
 import {
   Injectable,
   NestInterceptor,
   ExecutionContext,
   CallHandler,
+  HttpStatus,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { firstValueFrom, of } from 'rxjs';
@@ -21,7 +21,7 @@ export class ResponseInterceptor implements NestInterceptor {
       this.reflector.get<number>('__httpCode__', context.getHandler()) || 200;
     return of({
       statusCode: status,
-      message: statusMessages[status],
+      message: HttpStatus[status],
       body: body,
     });
   }

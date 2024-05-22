@@ -1,9 +1,9 @@
-import { Public } from '@/core/decorators/public.decorator';
-import { UserService } from '@/modules/user/user.service';
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { HealthCheckService } from '@nestjs/terminus';
 import { PrismaService } from '@services/prisma.service';
+import { UserService } from '@/modules/user/user.service';
+import { Public } from '@/core/decorators/public.decorator';
 
 @ApiTags('app')
 @Controller()

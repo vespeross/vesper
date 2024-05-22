@@ -3,15 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { faker } from '@faker-js/faker';
 
-export class CreateProjectDto {
-  @ApiProperty({
-    description: 'project id',
-    example: faker.word.noun(),
-  })
-  @IsNotEmpty()
-  @IsString()
-  key: string;
-
+export class EditProjectDto {
   @ApiProperty({
     description: 'project name',
     example: faker.company.name(),
