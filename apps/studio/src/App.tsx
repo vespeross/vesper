@@ -9,7 +9,7 @@ import { Login, Register } from "./pages/auth";
 import NotFound from "./pages/NotFound";
 import { useUser } from "./hooks";
 import { Home } from "./pages";
-
+import { Toaster } from "sonner"
 export default function App() {
   const { isAuthenticated } = useUser();
   return (
@@ -31,6 +31,7 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </TooltipProvider>
   );
 }

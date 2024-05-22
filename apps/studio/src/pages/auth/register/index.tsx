@@ -1,10 +1,13 @@
 import * as React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import ErrorMessage from "@/components/ErrorMessage";
 import { signupSchema } from "./validation";
 import { useSignupMutation } from "@/store/slices/auth";
 
@@ -16,86 +19,80 @@ export const Register: React.FC = () => {
   } = useForm({
     resolver: yupResolver(signupSchema),
   });
-  const [sigup, { isLoading, isError, isSuccess }] = useSignupMutation();
+
+  const [signup, { isLoading }] = useSignupMutation();
+  const navigate = useNavigate();
+
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      const { data: signupData } = await sigup({
+      const { data: signupData } = await signup({
         email: data.email,
         password: data.password,
       }).unwrap();
+
       console.log(signupData);
+      toast.success("Registration successful!");
+      navigate("/dashboard");
     } catch (error) {
-      console.error(error);
+      console.error("Registration error", error);
+      toast.error("Registration failed. Please try again.");
     }
   };
-  console.log({
-    isError,
-    isLoading,
-    isSuccess,
-  });
+
   return (
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("email")} />
-        <p>{errors.email?.message}</p>
-        <input {...register("password")} />
-        <p>{errors.password?.message}</p>
-        <input type="submit" />
-      </form>
-      <div className="flex items-center justify-center py-12">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
-            <p className="text-balance text-muted-foreground">
-              Enter your email below to login to your account
+    <div className="flex w-full h-screen">
+      <div className="w-full md:w-1/2 flex items-center justify-center">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6 w-full max-w-sm p-5"
+        >
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-bold">Sign Up</h1>
+            <p className="text-muted-foreground">
+              Enter your email below to create your account
             </p>
           </div>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="mail@vesper.tech"
+                autoComplete="email"
                 required
+                {...register("email")}
               />
+              <ErrorMessage error={errors.email?.message} />
             </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  to="/forgot-password"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id="password" type="password" required />
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                {...register("password")}
+              />
+              <ErrorMessage error={errors.password?.message} />
             </div>
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-            <Button variant="outline" className="w-full">
-              Login with Google
+            <Button disabled={isLoading} type="submit" className="w-full">
+              {isLoading ? "Signing up..." : "Sign Up"}
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link to="#" className="underline">
-              Sign up
+            Already have an account?{" "}
+            <Link to="/login" className="underline">
+              Login
             </Link>
           </div>
-        </div>
+        </form>
       </div>
-      <div className="hidden bg-muted lg:block">
-        <img
-          src="/placeholder.svg"
-          alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
-      </div>
+      <img
+        src="https://source.unsplash.com/1600x900?black"
+        className="w-1/2 hidden md:block h-full"
+        alt="Background"
+      />
     </div>
   );
 };
