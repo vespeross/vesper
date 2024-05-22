@@ -22,11 +22,13 @@ export class UserService implements IUserService {
   async createUser(payload: CreateUserDto): Promise<createUserResponse> {
     const { email, password } = payload;
     const password_hash = await this.hashService.createHash(password);
+    const userCount = await this.prismaService.user.count();
     try {
       const user = await this.prismaService.user.create({
         data: {
           email,
           password_hash,
+          role: userCount === 0 ? 'OWNER' : 'MEMBER',
         },
       });
       delete user.password_hash;
