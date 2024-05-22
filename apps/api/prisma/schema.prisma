@@ -10,12 +10,6 @@ datasource db {
   schemas = ["public", "auth", "projects", "databases"]
 }
 
-enum Strategy {
-  LOCAL
-  GOOGLE
-
-  @@schema("auth")
-}
 
 enum DatabaseType {
   POSTGRES
@@ -29,7 +23,6 @@ model User {
   cid           String    @id @default(cuid())
   email         String    @unique
   password_hash String?
-  strategy      Strategy  @default(LOCAL)
   Project       Project[]
 
   @@index([email], name: "email")

@@ -7,25 +7,28 @@ import { Dashboard } from "./pages/dashboard";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { Login, Register } from "./pages/auth";
 import NotFound from "./pages/NotFound";
-import { useStoreSelector } from "./hooks";
+import { useUser } from "./hooks";
+import { Home } from "./pages";
 
 export default function App() {
-  const { access_token } = useStoreSelector((state) => state.auth)
-  console.log(access_token)
-
+  const { isAuthenticated } = useUser();
   return (
     <TooltipProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="projects" element={<Projects />} />
-            <Route path="projects/:projectId" element={<Project />} />
-          </Route>
-          <Route path="/" element={<Login />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/" index element={<Home />} />
+          {isAuthenticated && (
+            <Route path="dashboard" element={<DashboardLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="projects/:projectId" element={<Project />} />
+            </Route>
+          )}
+          <Route path="auth">
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

@@ -20,21 +20,16 @@ export class UserService implements IUserService {
     private readonly hashService: HelperHashService,
   ) {}
   async createUser(payload: CreateUserDto): Promise<createUserResponse> {
-    const { email, password, strategy } = payload;
+    const { email, password } = payload;
     const password_hash = await this.hashService.createHash(password);
     try {
       const user = await this.prismaService.user.create({
         data: {
           email,
           password_hash,
-          strategy,
-        },
-        select: {
-          cid: true,
-          email: true,
-          strategy: true,
         },
       });
+      delete user.password_hash;
       return {
         user,
       };

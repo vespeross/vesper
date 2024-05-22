@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "./validation";
+import { useNavigate } from "react-router-dom";
 
 export const Login: React.FC = () => {
   const {
@@ -21,12 +22,15 @@ export const Login: React.FC = () => {
   const dispatch = useStoreDispatch();
   const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
   console.log(isLoading);
+  const navigate = useNavigate();
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
       const { data: response } = await login({
         email: data.email,
         password: data.password,
       });
+      if (!response) return;
+      navigate("/dashboard");
       dispatch(
         authActions.addUser({
           user: response.body.user,
@@ -46,6 +50,12 @@ export const Login: React.FC = () => {
   console.log(data);
   const { user } = useUser();
   console.log({ user });
+  const { isAuthenticated } = useUser();
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
   return (
     <div className="flex w-full h-screen">
       <div className="w-full md:w-2/5 flex items-center justify-center">

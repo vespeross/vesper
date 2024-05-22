@@ -28,7 +28,6 @@ import {
 import { Link, Outlet } from "react-router-dom";
 
 export const DashboardLayout: React.FC = () => {
-
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -175,17 +174,10 @@ export const DashboardLayout: React.FC = () => {
           <DynamicBreadcrumb />
 
           <div className="relative ml-auto w-fit flex items-center gap-2">
-            <span>
-
-              Press
-            </span>
+            <span>Press</span>
             <div className="flex gap-2 items-center bg-neutral-200 px-2.5 py-0.5 rounded-md border">
-
               <CommandIcon weight="duotone" />
-              <span>
-
-                + K
-              </span>
+              <span>+ K</span>
             </div>
             to open command palette
           </div>
@@ -219,7 +211,6 @@ export const DashboardLayout: React.FC = () => {
           <Outlet />
         </main>
         <Command />
-
       </div>
     </div>
   );
