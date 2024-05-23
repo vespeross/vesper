@@ -22,7 +22,7 @@ const authApi = api.injectEndpoints({
             })
           );
         } catch (error: any) {
-          toast.error(error.error.data.message)
+          toast.error(error.error.data.message);
         }
       },
     }),
@@ -32,6 +32,20 @@ const authApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (!data) return;
+          dispatch(
+            actions.addUser({
+              user: data.body.user,
+              access_token: data.body.accessToken,
+            })
+          );
+        } catch (error: any) {
+          toast.error(error.error.data.message);
+        }
+      },
     }),
   }),
 });
