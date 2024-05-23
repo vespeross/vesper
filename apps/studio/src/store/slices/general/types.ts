@@ -1,6 +1,4 @@
-export type GeneralSliceState = {
-  isNewInstall: boolean;
-};
+export type GeneralSliceState = object;
 
 export type IsNewInstallResponse = {
   body: {
