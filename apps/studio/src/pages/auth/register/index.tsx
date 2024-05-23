@@ -24,18 +24,9 @@ export const Register: React.FC = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: { email: string; password: string }) => {
-    try {
-      const { data: signupData } = await signup({
-        email: data.email,
-        password: data.password,
-      }).unwrap();
-
-      toast.success("Registration successful!");
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Registration error", error);
-      toast.error("Registration failed. Please try again.");
-    }
+    await signup(data);
+    toast.success("Registration successful!");
+    navigate("/dashboard");
   };
 
   return (
