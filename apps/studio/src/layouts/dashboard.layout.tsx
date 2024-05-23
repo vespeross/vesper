@@ -29,10 +29,10 @@ import {
 import { Link, Navigate, Outlet } from "react-router-dom";
 
 export const DashboardLayout: React.FC = () => {
-  console.log("hit")
-  const { isAuthenticated } = useUser()
-  console.log(isAuthenticated)
-  if (!isAuthenticated) return <Navigate to="/auth" />
+  console.log("hit");
+  const { isAuthenticated, logOut, user } = useUser();
+  console.log(isAuthenticated);
+  if (!isAuthenticated) return <Navigate to="/auth" />;
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -194,7 +194,7 @@ export const DashboardLayout: React.FC = () => {
                 className="overflow-hidden rounded-full"
               >
                 <img
-                  src="/placeholder-user.jpg"
+                  src={`https://i.pravatar.cc/150?u=${user?.email}`}
                   width={36}
                   height={36}
                   alt="Avatar"
@@ -208,7 +208,7 @@ export const DashboardLayout: React.FC = () => {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={logOut}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
