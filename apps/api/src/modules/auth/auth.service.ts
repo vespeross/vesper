@@ -134,7 +134,9 @@ export class AuthService implements IAuthService {
   }
 
   public async acceptInvite(data: AcceptInviteDto): Promise<IAuthResponse> {
-    const { email } = await this.jwtService.verifyAsync(data.token);
+    const { email } = await this.jwtService.verifyAsync(data.token, {
+      secret: 'secret',
+    });
     const invite = await this.prismaService.user.findUnique({
       where: {
         email,
