@@ -1,6 +1,7 @@
 import { api } from "@/store/api";
 import type { LoginPayload, LoginAPIResponse } from "./types";
 import { actions } from "./slice";
+import { toast } from "sonner";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -20,8 +21,8 @@ const authApi = api.injectEndpoints({
               access_token: data.body.accessToken,
             })
           );
-        } catch (error) {
-          console.error("i am running", error);
+        } catch (error: any) {
+          toast.error(error.error.data.message)
         }
       },
     }),

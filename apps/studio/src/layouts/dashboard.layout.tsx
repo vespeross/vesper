@@ -29,7 +29,9 @@ import {
 import { Link, Navigate, Outlet } from "react-router-dom";
 
 export const DashboardLayout: React.FC = () => {
+  console.log("hit")
   const { isAuthenticated } = useUser()
+  console.log(isAuthenticated)
   if (!isAuthenticated) return <Navigate to="/auth" />
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">

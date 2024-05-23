@@ -30,7 +30,6 @@ export const Register: React.FC = () => {
         password: data.password,
       }).unwrap();
 
-      console.log(signupData);
       toast.success("Registration successful!");
       navigate("/dashboard");
     } catch (error) {
