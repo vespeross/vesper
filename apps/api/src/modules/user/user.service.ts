@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import {
   IUserService,
   getUser,
@@ -8,14 +12,12 @@ import {
 } from './interfaces';
 import { InviteUserDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
-import { HelperHashService } from '@/common/services/hash.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService implements IUserService {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly hashService: HelperHashService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -43,6 +45,14 @@ export class UserService implements IUserService {
   }
 
   public async inviteUser(payload: InviteUserDto): Promise<inviteUserResponse> {
+    const userExists = await this.prismaService.user.findUnique({
+      where: {
+        email: payload.email,
+      },
+    });
+    if (userExists) {
+      throw new ConflictException('User already exists');
+    }
     const otp = Math.floor(100000 + Math.random() * 900000);
     const code = await this.jwtService.signAsync(
       {
@@ -52,6 +62,7 @@ export class UserService implements IUserService {
       {
         expiresIn: '7d',
         algorithm: 'HS256',
+        secret: 'secret',
       },
     );
     await this.prismaService.invite.create({
