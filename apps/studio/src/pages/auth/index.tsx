@@ -7,14 +7,13 @@ import { useEffect } from "react";
 
 export default function Auth() {
   const { data, refetch } = useNewQuery(undefined, {
-    pollingInterval: 1,
+    skip: false,
   });
   useEffect(() => {
     refetch();
   }, [refetch]);
   console.log("is new install", data?.body.isNewInstall);
   const { isAuthenticated } = useUser();
-  console.log(isAuthenticated);
   if (isAuthenticated) return <Navigate to="/dashboard" />;
   else if (!data) return null;
   else if (data.body.isNewInstall) return <Register />;

@@ -7,6 +7,7 @@ const generalApi = api.injectEndpoints({
       query: () => ({
         url: "/init",
       }),
+      
     }),
     health: build.query({
       query: () => ({
