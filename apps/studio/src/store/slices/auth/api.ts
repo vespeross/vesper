@@ -3,6 +3,7 @@ import type { LoginPayload, LoginAPIResponse } from "./types";
 import { actions } from "./slice";
 import { toast } from "sonner";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { RootState } from "@/store";
 
 export const api = createApi({
   reducerPath: "authApi",
@@ -55,6 +56,23 @@ export const api = createApi({
       query: () => ({
         url: "/user",
       }),
+      onQueryStarted: async (_args, { dispatch, queryFulfilled, getState }) => {
+        try {
+          const { data } = await queryFulfilled;
+          const state = getState() as RootState;
+          if (!data) return;
+          dispatch(
+            actions.addUser({
+              user: data.body.user,
+              access_token: state.auth.access_token!,
+            })
+          );
+        } catch (error: any) {
+          if (error.error.status === 404) {
+            dispatch(actions.removeUser());
+          }
+        }
+      },
     }),
   }),
 });
