@@ -5,9 +5,6 @@ import type { AuthSliceState, AddUserPayload } from "./types";
 const initialState: AuthSliceState = {
   access_token: null,
   user: null,
-  error: null,
-  isAuthenticating: false,
-  isLoading: false,
 };
 
 export const authSlice = createSlice({
@@ -19,8 +16,11 @@ export const authSlice = createSlice({
       state.access_token = action.payload.access_token;
     },
     removeUser: (state) => {
+      console.log("Removing user");
       state.user = null;
       state.access_token = null;
+      document.cookie =
+        "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     },
   },
 });
