@@ -1,9 +1,12 @@
-import { api } from "@/store/api";
+import { customFetchBase } from "@/store/api";
 import type { LoginPayload, LoginAPIResponse } from "./types";
 import { actions } from "./slice";
 import { toast } from "sonner";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
-const authApi = api.injectEndpoints({
+export const api = createApi({
+  reducerPath: "authApi",
+  baseQuery: customFetchBase,
   endpoints: (build) => ({
     login: build.mutation<LoginAPIResponse, LoginPayload>({
       query: (body: LoginPayload) => ({
@@ -50,4 +53,4 @@ const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = authApi;
+export const { useLoginMutation, useSignupMutation } = api;
