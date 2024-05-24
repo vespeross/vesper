@@ -1,12 +1,22 @@
-import { api } from "@/store/api";
+import { customFetchBase } from "@/store/api";
 import { ProjectType } from "@/types";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
-const propjectApi = api.injectEndpoints({
+export const api = createApi({
+  reducerPath: "projectApi",
+  baseQuery: customFetchBase,
   endpoints: (build) => ({
     getProjects: build.query<ProjectType[], void>({
-      query: () => "/project",
+      query() {
+        return {
+          url: "/project",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        };
+      },
     }),
   }),
 });
 
-export const { useGetProjectsQuery } = propjectApi;
+export const { useGetProjectsQuery } = api;
