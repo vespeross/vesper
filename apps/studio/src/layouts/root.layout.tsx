@@ -10,29 +10,8 @@ export const RootLayout: React.FC = () => {
   if (isLoading) {
     return null;
   }
-  if (!isAuthenticated) {
-    return (
-      <Navigate
-        to="/auth"
-        replace
-        state={{
-          location,
-        }}
-      />
-    );
-  } else if (
-    (location.pathname === "/" || location.pathname.startsWith("auth")) &&
-    isAuthenticated
-  ) {
-    return (
-      <Navigate
-        to="/dashboard"
-        state={{
-          location,
-        }}
-        replace
-      />
-    );
+  if (!isAuthenticated && location.pathname !== "/auth") {
+    return <Navigate to="/auth" />;
   } else {
     return <Outlet />;
   }

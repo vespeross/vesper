@@ -14,13 +14,14 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<NotFound />} />
-          <Route index element={<RootLayout />} />
-          <Route path="dashboard" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="projects" element={<Projects />} />
-            <Route path=":id" element={<Project />} />
+          <Route element={<RootLayout />}>
+            <Route path="dashboard" element={<DashboardLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path=":id" element={<Project />} />
+            </Route>
+            <Route path="auth" element={<Auth />} />
           </Route>
-          <Route path="auth" element={<Auth />} />
         </Routes>
       </BrowserRouter>
       <Toaster />
