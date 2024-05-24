@@ -20,18 +20,12 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// type RefreshResponse = {
-//   access_token: string;
-// };
-
 const baseQueryWithReAuth = async (
   args: string | FetchArgs,
   api: BaseQueryApi,
   extraOptions: object
 ) => {
-  let result = await baseQuery(args, api, extraOptions);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  const result = await baseQuery(args, api, extraOptions);
   // if (result.data.error === "Token is expired") {
   //   const refreshResult = (await baseQuery(
   //     "/auth/refresh",
