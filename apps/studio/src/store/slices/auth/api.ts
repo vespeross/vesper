@@ -24,6 +24,7 @@ export const api = createApi({
               access_token: data.body.accessToken,
             })
           );
+          document.cookie = `refresh_token=${data.body.refreshToken};`;
         } catch (error: any) {
           toast.error(error.error.data.message);
         }
@@ -50,7 +51,12 @@ export const api = createApi({
         }
       },
     }),
+    getMe: build.query({
+      query: () => ({
+        url: "/user",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = api;
+export const { useLoginMutation, useSignupMutation, useGetMeQuery } = api;
