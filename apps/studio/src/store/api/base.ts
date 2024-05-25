@@ -32,9 +32,6 @@ export const customFetchBase: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
-  console.log({
-    result,
-  });
   if (result.error?.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
@@ -42,9 +39,6 @@ export const customFetchBase: BaseQueryFn<
         .split("; ")
         .map((cookie) => cookie.split("="))
         .find(([key]) => key === "refresh_token")?.[1];
-      console.log({
-        refresh_token,
-      });
       try {
         const refreshResult = (await baseQuery(
           {
@@ -56,9 +50,6 @@ export const customFetchBase: BaseQueryFn<
           api,
           extraOptions
         )) as { data: { body: { accessToken: string } } };
-        console.log({
-          refreshResult,
-        });
         if (refreshResult.data) {
           const state = api.getState() as RootState;
           const user = state.auth.user;

@@ -12,7 +12,6 @@ export default function Auth() {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  console.log("is new install", data?.body.isNewInstall);
   const { isAuthenticated } = useUser();
   if (isAuthenticated) return <Navigate to="/dashboard" />;
   else if (!data) return null;

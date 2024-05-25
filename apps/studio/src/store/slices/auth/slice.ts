@@ -16,7 +16,6 @@ export const authSlice = createSlice({
       state.access_token = action.payload.access_token;
     },
     removeUser: (state) => {
-      console.log("Removing user");
       state.user = null;
       state.access_token = null;
       document.cookie =

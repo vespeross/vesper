@@ -57,19 +57,15 @@ export const api = createApi({
         url: "/user",
       }),
       onQueryStarted: async (_args, { dispatch, queryFulfilled, getState }) => {
-        try {
-          const { data } = await queryFulfilled;
-          const state = getState() as RootState;
-          if (!data) return;
-          dispatch(
-            actions.addUser({
-              user: data.body.user,
-              access_token: state.auth.access_token!,
-            })
-          );
-        } catch (error: any) {
-          toast.error(error.error.data.message);
-        }
+        const { data } = await queryFulfilled;
+        const state = getState() as RootState;
+        if (!data) return;
+        dispatch(
+          actions.addUser({
+            user: data.body.user,
+            access_token: state.auth.access_token!,
+          })
+        );
       },
     }),
   }),
