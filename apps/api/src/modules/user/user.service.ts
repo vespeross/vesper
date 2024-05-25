@@ -1,7 +1,7 @@
 import {
   ConflictException,
   Injectable,
-  NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import {
   IUserService,
@@ -40,7 +40,7 @@ export class UserService implements IUserService {
         user,
       };
     } catch (error) {
-      throw new NotFoundException('User not found');
+      throw new UnauthorizedException('User not found');
     }
   }
 
