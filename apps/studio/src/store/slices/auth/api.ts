@@ -68,9 +68,7 @@ export const api = createApi({
             })
           );
         } catch (error: any) {
-          if (error.error.status === 404) {
-            dispatch(actions.removeUser());
-          }
+          toast.error(error.error.data.message);
         }
       },
     }),
