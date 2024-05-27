@@ -19,6 +19,11 @@ export class UserController {
     return await this.userService.getUser(user.cid);
   }
 
+  @Get('invite')
+  async getInvites() {
+    return await this.userService.getInvites();
+  }
+
   @Post('invite')
   async invite(@Body() payload: InviteUserDto) {
     return await this.userService.inviteUser(payload);

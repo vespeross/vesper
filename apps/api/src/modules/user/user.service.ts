@@ -13,6 +13,7 @@ import {
 import { InviteUserDto } from './dtos';
 import { PrismaService } from '@/common/services/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import { Invite } from '@prisma/client';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -75,6 +76,14 @@ export class UserService implements IUserService {
     return {
       email: payload.email,
       inviteLink,
+    };
+  }
+
+  public async getInvites(): Promise<{
+    invites: Invite[];
+  }> {
+    return {
+      invites: await this.prismaService.invite.findMany(),
     };
   }
 

@@ -13,7 +13,6 @@ export const api = createApi({
       query: () => "/project",
       providesTags: (result) =>
         result ? [{ type: "Project", id: "LIST" }] : [],
-
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           dispatch(
