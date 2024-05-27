@@ -11,3 +11,12 @@ export type Project = {
   updatedAt: string;
   deletedAt: string;
 };
+
+export type Invite = {
+  accepted: boolean;
+  cid: string;
+  code: string;
+  createdAt: string;
+  email: string;
+  updatedAt: string;
+};
