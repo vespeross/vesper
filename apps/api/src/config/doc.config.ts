@@ -10,8 +10,8 @@ type DocConfig = {
 export default registerAs(
   'doc',
   (): Required<DocConfig> => ({
-    name: `vesper ${process.env.APP_NAME.toLocaleUpperCase()} APIs Specification`,
-    description: `The ${process.env.APP_NAME} API description`,
+    name: `${process.env.APP_NAME.toLocaleUpperCase()} APIs Specification`,
+    description: `${process.env.APP_NAME} API description`,
     version: '1.0',
     prefix: '/docs',
   }),
