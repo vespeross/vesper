@@ -31,9 +31,7 @@ export class AuthController {
   @UseGuards(AuthJwtRefreshGuard)
   @Get('refresh')
   public refresh(@AuthUser() user: IAuthPayload) {
-    return this.authService.generateTokens({
-      cid: user.cid,
-    });
+    return this.authService.generateTokens(user);
   }
 
   @Public()
