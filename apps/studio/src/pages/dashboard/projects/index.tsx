@@ -4,7 +4,7 @@ import { Icons } from "@/components/ui/icons";
 import { CreateProjectCard } from "./components/CreateProjectCard";
 import { useStoreSelector } from "@/hooks";
 
-export default function Projects() {
+export const Projects: React.FC = () => {
   const { isLoading } = useGetProjectsQuery();
   const { projects } = useStoreSelector((state) => state.projects);
   return (
@@ -25,4 +25,4 @@ export default function Projects() {
       )}
     </div>
   );
-}
+};

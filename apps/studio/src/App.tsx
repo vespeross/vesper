@@ -4,7 +4,7 @@ import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DashboardLayout, RootLayout } from "@/layouts";
 import { Auth, Dashboard, NotFound, Handler } from "@/pages";
-import Projects from "@/pages/dashboard/projects";
+import { Projects } from "@/pages/dashboard/projects";
 import { Project } from "./pages/dashboard/projects/project";
 
 export default function App() {
@@ -17,8 +17,7 @@ export default function App() {
             <Route index element={<Handler />} />
             <Route path="dashboard" element={<DashboardLayout />}>
               <Route index element={<Dashboard />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="project">
+              <Route path="projects" element={<Projects />}>
                 <Route path=":cid" element={<Project />} />
               </Route>
             </Route>
