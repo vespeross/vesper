@@ -4,7 +4,7 @@ import { Transform } from 'class-transformer';
 import { faker } from '@faker-js/faker';
 import { DatabaseType } from '@prisma/client';
 
-export class CreateUserDto {
+export class CreateDatabaseDto {
   @ApiProperty({
     description: 'database name',
     example: faker.commerce.productName(),
@@ -21,4 +21,12 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsIn([DatabaseType.POSTGRES, DatabaseType.MYSQL, DatabaseType.MONGODB])
   type: DatabaseType;
+
+  @ApiProperty({
+    description: 'project id',
+    example: faker.string.uuid(),
+  })
+  @IsNotEmpty()
+  @IsString()
+  projectId: string;
 }
