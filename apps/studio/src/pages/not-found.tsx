@@ -1,7 +1,7 @@
 import { useUser } from "@/hooks";
 import { Link } from "react-router-dom";
 
-export default function NotFound() {
+export const NotFound: React.FC = () => {
   const { isAuthenticated } = useUser();
   return (
     <div className="flex flex-col justify-center text-center h-screen items-center">
@@ -16,4 +16,4 @@ export default function NotFound() {
       </div>
     </div>
   );
-}
+};

@@ -12,8 +12,6 @@ export const RootLayout: React.FC = () => {
   }
   if (!isAuthenticated && location.pathname !== "/auth") {
     return <Navigate to="/auth" />;
-  } else if (isAuthenticated && location.pathname === "/auth") {
-    return <Navigate to="/dashboard" />;
   } else {
     return <Outlet />;
   }

@@ -1,88 +1,36 @@
 import * as React from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import ErrorMessage from "@/components/ErrorMessage";
-import { signupSchema } from "./validation";
-import { useSignupMutation } from "@/store/slices/auth";
+import { Link } from "react-router-dom";
+import { UserAuthForm } from "./form";
 
 export const Register: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(signupSchema),
-  });
-
-  const [signup, { isLoading }] = useSignupMutation();
-  const navigate = useNavigate();
-
-  const onSubmit = async (data: { email: string; password: string }) => {
-    await signup(data);
-    toast.success("Registration successful!");
-    navigate("/dashboard");
-  };
-
   return (
-    <div className="flex w-full h-screen">
-      <div className="w-full md:w-1/2 flex items-center justify-center">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-6 w-full max-w-sm p-5"
-        >
-          <div className="flex flex-col gap-2">
-            <h1 className="text-3xl font-bold">Sign Up</h1>
-            <p className="text-muted-foreground">
-              Enter your email below to create your account
-            </p>
-          </div>
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="mail@vesper.tech"
-                autoComplete="email"
-                required
-                {...register("email")}
-              />
-              <ErrorMessage error={errors.email?.message} />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                {...register("password")}
-              />
-              <ErrorMessage error={errors.password?.message} />
-            </div>
-            <Button disabled={isLoading} type="submit" className="w-full">
-              {isLoading ? "Signing up..." : "Sign Up"}
-            </Button>
-          </div>
-          <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
-            <Link to="/login" className="underline">
-              Login
-            </Link>
-          </div>
-        </form>
+    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+      <div className="flex flex-col space-y-2 text-center">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Create an account
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Enter your email below to create your account
+        </p>
       </div>
-      <img
-        src="https://source.unsplash.com/1600x900?black"
-        className="w-1/2 hidden md:block h-full"
-        alt="Background"
-      />
+      <UserAuthForm />
+      <p className="px-8 text-center text-sm text-muted-foreground">
+        By clicking continue, you agree to our{" "}
+        <Link
+          to="/terms"
+          className="underline underline-offset-4 hover:text-primary"
+        >
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link
+          to="/privacy"
+          className="underline underline-offset-4 hover:text-primary"
+        >
+          Privacy Policy
+        </Link>
+        .
+      </p>
     </div>
   );
 };
