@@ -14,7 +14,7 @@ import {
 import { AcceptInviteDto, UserLoginDto } from './dtos';
 import { HelperHashService, PrismaService } from '@/common/services';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { UserService } from '../user/user.service';
+import { TokenType } from '@/app/app.constants';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -22,7 +22,6 @@ export class AuthService implements IAuthService {
   private readonly refreshTokenSecret: string;
   private readonly accessTokenExp: string;
   private readonly refreshTokenExp: string;
-  private readonly userService: UserService;
 
   constructor(
     private readonly prismaService: PrismaService,
@@ -58,9 +57,7 @@ export class AuthService implements IAuthService {
     if (!match) {
       throw new UnauthorizedException('Invalid Credentials');
     }
-    const { accessToken, refreshToken } = await this.generateTokens({
-      cid: user.cid,
-    });
+    const { accessToken, refreshToken } = await this.generateTokens(user);
     delete user.password_hash;
     return {
       accessToken,
@@ -70,6 +67,11 @@ export class AuthService implements IAuthService {
   }
 
   public async generateTokens(user: IAuthPayload): Promise<ITokenResponse> {
+    console.log(user);
+    console.log({
+      accessTokenSecret: this.accessTokenSecret,
+      refreshTokenSecret: this.refreshTokenSecret,
+    });
     const accessToken = this.jwtService.sign(
       {
         cid: user.cid,
@@ -94,10 +96,16 @@ export class AuthService implements IAuthService {
     });
   }
 
-  public async verifyToken(accessToken: string): Promise<IAuthPayload> {
+  public async verifyToken(
+    token: string,
+    type: TokenType,
+  ): Promise<IAuthPayload> {
     try {
-      const { payload } = this.jwtService.verify(accessToken, {
-        secret: this.accessTokenSecret,
+      const { payload } = this.jwtService.verify(token, {
+        secret:
+          type === TokenType.ACCESS
+            ? this.accessTokenSecret
+            : this.refreshTokenSecret,
       });
       return Promise.resolve(payload);
     } catch (error) {
@@ -117,9 +125,7 @@ export class AuthService implements IAuthService {
         },
       });
       delete user.password_hash;
-      const { accessToken, refreshToken } = await this.generateTokens({
-        cid: user.cid,
-      });
+      const { accessToken, refreshToken } = await this.generateTokens(user);
       return {
         accessToken,
         refreshToken,

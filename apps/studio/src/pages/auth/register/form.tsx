@@ -24,8 +24,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const navigate = useNavigate();
 
   const onSubmit = async (data: { email: string; password: string }) => {
-    await signup(data);
-    navigate("/dashboard");
+    try {
+      await signup(data);
+      navigate("/dashboard");
+    } catch (error) {
+      // skip navigation
+    }
   };
 
   return (
