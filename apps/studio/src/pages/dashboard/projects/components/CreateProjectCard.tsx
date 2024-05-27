@@ -51,22 +51,28 @@ export const CreateProjectCard: React.FC = () => {
             Create a project to add services and environments
           </DialogDescription>
         </DialogHeader>
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
-          <Label htmlFor="name">Project Name</Label>
-          <Input
-            id="name"
-            placeholder="Project Name"
-            disabled={isLoading}
-            {...register("name")}
-          />
-          <p className="text-red-500 text-sm">{errors.name?.message}</p>
-          <Label htmlFor="description">Description</Label>
-          <Input
-            id="description"
-            placeholder="Project Description"
-            disabled={isLoading}
-            {...register("description")}
-          />
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col gap-2">
+
+            <Label htmlFor="name">Project Name</Label>
+            <Input
+              id="name"
+              placeholder="Project Name"
+              disabled={isLoading}
+              {...register("name")}
+            />
+            <p className="text-red-500 text-sm">{errors.name?.message}</p>
+          </div>
+          <div className="flex flex-col gap-2">
+
+            <Label htmlFor="description">Description</Label>
+            <Input
+              id="description"
+              placeholder="Project Description"
+              disabled={isLoading}
+              {...register("description")}
+            />
+          </div>
           <DialogFooter>
             <Button type="submit">Create Project</Button>
           </DialogFooter>
