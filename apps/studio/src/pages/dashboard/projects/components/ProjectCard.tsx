@@ -33,7 +33,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       <ContextMenuTrigger>
         <Card
           onClick={() => {
-            navigate(`/dashboard/project/cid=${project.cid}`);
+            navigate(`/dashboard/projects/${project.cid}`);
           }}
         >
           <CardHeader>
