@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DashboardLayout, RootLayout } from "@/layouts";
 import { Auth, Dashboard, NotFound, Handler } from "@/pages";
 import Projects from "@/pages/dashboard/projects";
-import Project from "@/pages/dashboard/projects/project";
+import { Project } from "./pages/dashboard/projects/project";
 
 export default function App() {
   return (
