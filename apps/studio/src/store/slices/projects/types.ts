@@ -1,5 +1,16 @@
-import { ProjectType } from "@/types";
+import { Project } from "@/types";
 
 export type ProjectSliceState = {
-  projects: ProjectType[];
+  projects: Project[];
+};
+
+export type GetProjectsResponse = {
+  body: {
+    projects: Project[];
+  };
+};
+
+export type CreateProjectPayload = {
+  name: string;
+  description: string | null;
 };
