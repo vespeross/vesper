@@ -17,16 +17,22 @@ import {
 } from "@/components/ui/tooltip";
 import { useUser } from "@/hooks";
 import {
-  ChartLine,
   Command as CommandIcon,
+  Cube,
+  CubeFocus,
   Gear,
-  House,
   Lightning,
   Package,
-  ShoppingBag,
-  Users,
+  Speedometer
 } from "@phosphor-icons/react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
+
+const sidebarItems = [
+  { path: '/dashboard', icon: <Speedometer className="h-5 w-5" />, label: 'Dashboard' },
+  { path: '/dashboard/projects', icon: <Cube className="h-5 w-5" />, label: 'Projects' },
+  { path: '/dashboard/containers', icon: <CubeFocus className="h-5 w-5" />, label: 'Containers' },
+  { path: '/dashboard/settings', icon: <Gear className="h-5 w-5" />, label: 'Settings' }
+];
 
 export const DashboardLayout: React.FC = () => {
   const { logOut, user } = useUser();
@@ -41,66 +47,11 @@ export const DashboardLayout: React.FC = () => {
             <Package className="h-4 w-4 transition-all group-hover:scale-110" />
             <span className="sr-only">Acme Inc</span>
           </Link>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                to="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <House className="h-5 w-5" />
-                <span className="sr-only">Dashboard</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                to="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <ShoppingBag className="h-5 w-5" />
-                <span className="sr-only">Orders</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Orders</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                to="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Package className="h-5 w-5" />
-                <span className="sr-only">Products</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Products</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                to="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Users className="h-5 w-5" />
-                <span className="sr-only">Customers</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Customers</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                to="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <ChartLine className="h-5 w-5" />
-                <span className="sr-only">Analytics</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Analytics</TooltipContent>
-          </Tooltip>
+          {
+            sidebarItems.map(item => (
+              <SideBarItem key={item.path} {...item} />
+            ))
+          }
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
           <Tooltip>
@@ -128,6 +79,7 @@ export const DashboardLayout: React.FC = () => {
             </SheetTrigger>
             <SheetContent side="left" className="sm:max-w-xs">
               <nav className="grid gap-6 text-lg font-medium">
+
                 <Link
                   to="#"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
@@ -135,41 +87,18 @@ export const DashboardLayout: React.FC = () => {
                   <Package className="h-5 w-5 transition-all group-hover:scale-110" />
                   <span className="sr-only">Acme Inc</span>
                 </Link>
-                <Link
-                  to="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <House className="h-5 w-5" />
-                  Dashboard
-                </Link>
-                <Link
-                  to="#"
-                  className="flex items-center gap-4 px-2.5 text-foreground"
-                >
-                  <ShoppingBag className="h-5 w-5" />
-                  Orders
-                </Link>
-                <Link
-                  to="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Package className="h-5 w-5" />
-                  Products
-                </Link>
-                <Link
-                  to="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Users className="h-5 w-5" />
-                  Customers
-                </Link>
-                <Link
-                  to="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <ChartLine className="h-5 w-5" />
-                  Settings
-                </Link>
+                {
+                  sidebarItems.map(item => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                    >
+                      {item.icon}
+                      {item.label}
+                    </Link>
+                  ))
+                }
               </nav>
             </SheetContent>
           </Sheet>
@@ -217,3 +146,22 @@ export const DashboardLayout: React.FC = () => {
     </div>
   );
 };
+
+const SideBarItem = ({ path, icon, label }: { path: string; icon: React.ReactNode; label: string }) => {
+  const { pathname } = useLocation();
+  const isActive = pathname === path;
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Link
+          to={path}
+          className={`flex h-9 w-9 items-center justify-center rounded-lg ${isActive ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'} transition-colors hover:text-foreground md:h-8 md:w-8`}
+        >
+          {icon}
+          <span className="sr-only">{label}</span>
+        </Link>
+      </TooltipTrigger>
+      <TooltipContent side="right">{label}</TooltipContent>
+    </Tooltip>
+  );
+}
