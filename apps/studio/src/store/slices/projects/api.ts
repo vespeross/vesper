@@ -7,13 +7,13 @@ import { actions } from "./slice";
 export const api = createApi({
   reducerPath: "projectApi",
   baseQuery: customFetchBase,
+  tagTypes: ["Project"],
   endpoints: (build) => ({
     getProjects: build.query<GetProjectsResponse, void>({
-      query() {
-        return {
-          url: "/project",
-        };
-      },
+      query: () => "/project",
+      providesTags: (result) =>
+        result ? [{ type: "Project", id: "LIST" }] : [],
+
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           dispatch(
@@ -36,10 +36,10 @@ export const api = createApi({
           },
         };
       },
-      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+      invalidatesTags: ["Project"],
+      async onQueryStarted(_args, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          dispatch(api.endpoints.getProjects.initiate());
           toast.success("Project created successfully");
         } catch (error: any) {
           toast.error(error.error.data.message);
