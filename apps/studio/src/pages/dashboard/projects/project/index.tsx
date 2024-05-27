@@ -1,17 +1,33 @@
-import { useProjects } from "@/hooks";
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { useProject } from "@/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDeleteProjectMutation } from "@/store/slices/projects";
 
 export const Project: React.FC = () => {
   const { cid } = useParams<{ cid: string }>();
-  const { isLoading, projects } = useProjects();
+  const { isLoading, project } = useProject(cid!);
+  const [deleteProject, { isLoading: isProjectDeleting }] =
+    useDeleteProjectMutation();
+  const navigate = useNavigate();
   if (isLoading) return <div>Loading...</div>;
-  const project = projects.find((project) => project.cid === cid);
-  if (!project) return <div>Project not found for {cid}</div>;
   return (
     <div>
       Project
       <pre>{JSON.stringify(project, null, 4)}</pre>
+      <button
+        onClick={async () => {
+          if (!cid) return;
+          if (isProjectDeleting) return;
+          try {
+            await deleteProject(cid!);
+            navigate("/dashboard/projects");
+          } catch (error) {
+            // Handle error
+          }
+        }}
+      >
+        Delete
+      </button>
     </div>
   );
 };

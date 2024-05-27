@@ -31,6 +31,7 @@ export const api = createApi({
           body: {
             name: body.name,
             description: body.description,
+            // TODO: Add a key to the body
             key: Math.random().toString(36).substring(7),
           },
         };
@@ -45,7 +46,18 @@ export const api = createApi({
         }
       },
     }),
+    deleteProject: build.mutation<void, string>({
+      query: (id) => ({
+        url: `/project/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Project"],
+    }),
   }),
 });
 
-export const { useGetProjectsQuery, useCreateProjectMutation } = api;
+export const {
+  useGetProjectsQuery,
+  useCreateProjectMutation,
+  useDeleteProjectMutation,
+} = api;

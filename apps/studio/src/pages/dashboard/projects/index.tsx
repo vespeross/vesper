@@ -20,7 +20,7 @@ export const Projects: React.FC = () => {
       ) : (
         <>
           <CreateProjectCard />
-          {projects && <AllProjects projects={projects} />}
+          {projects && <AllProjects projects={projects.filter((p) => p.deletedAt === null)} />}
         </>
       )}
     </div>

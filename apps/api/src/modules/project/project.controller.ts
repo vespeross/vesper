@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ProjectService } from './project.service';
 import { AuthUser } from '@/core/decorators/user.decorator';
@@ -70,9 +78,9 @@ export class ProjectController {
     required: true,
     type: String,
   })
-  @Delete('permanent-delete/:id')
-  async deleteProject(@AuthUser() user: IAuthPayload, id: string) {
-    return this.projectsService.deleteProject(id, user.cid);
+  @Delete('permanent-delete/:cid')
+  async deleteProject(@Param('cid') cid: string) {
+    return this.projectsService.deleteProject(cid);
   }
 
   @ApiParam({
@@ -80,8 +88,8 @@ export class ProjectController {
     required: true,
     type: String,
   })
-  @Delete('delete/:id')
-  async softDeleteProject(@AuthUser() user: IAuthPayload, id: string) {
-    return this.projectsService.softDeleteProject(id, user.cid);
+  @Delete(':cid')
+  async softDeleteProject(@Param('cid') cid: string) {
+    return this.projectsService.softDeleteProject(cid);
   }
 }

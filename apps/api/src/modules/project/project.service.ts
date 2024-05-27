@@ -175,12 +175,10 @@ export class ProjectService implements IProjectService {
 
   public async deleteProject(
     projectId: string,
-    userId: string,
   ): Promise<DeleteProjectResponse> {
     const project = await this.prismaService.project.findFirst({
       where: {
         cid: projectId,
-        ownerId: userId,
       },
     });
     if (!project) {
@@ -198,12 +196,10 @@ export class ProjectService implements IProjectService {
 
   public async softDeleteProject(
     projectId: string,
-    userId: string,
   ): Promise<SoftDeleteProjectResponse> {
     const project = await this.prismaService.project.findFirst({
       where: {
         cid: projectId,
-        ownerId: userId,
       },
     });
     if (!project) {
