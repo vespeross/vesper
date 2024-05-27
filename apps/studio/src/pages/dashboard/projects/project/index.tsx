@@ -3,6 +3,7 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 
 export const Project: React.FC = () => {
+  console.log("hi")
   const { cid } = useParams<{ cid: string }>();
   const { isLoading, projects } = useProjects();
   if (isLoading) return <div>Loading...</div>;
