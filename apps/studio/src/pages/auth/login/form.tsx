@@ -9,8 +9,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useLoginMutation } from "@/store/slices/auth";
 import { loginSchema } from "./validation";
+import ErrorMessage from "@/components/ErrorMessage";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const {
@@ -50,7 +51,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
               {...register("email")}
             />
-            <p className="text-red-500 text-sm">{errors.email?.message}</p>
+            <ErrorMessage error={errors.email?.message} />
           </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -66,7 +67,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
               {...register("password")}
             />
-            <p className="text-red-500 text-sm">{errors.password?.message}</p>
+            <ErrorMessage error={errors.password?.message} />
           </div>
           <Button type="submit" disabled={isLoading}>
             {isLoading && (

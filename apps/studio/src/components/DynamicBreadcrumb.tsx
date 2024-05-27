@@ -31,7 +31,7 @@ export default function DynamicBreadcrumb() {
                             {index > 0 && <BreadcrumbSeparator />}
                             <BreadcrumbItem>
                                 {isLast ? (
-                                    <BreadcrumbPage>{capitalizedPart}</BreadcrumbPage>
+                                    <BreadcrumbPage className='font-medium'>{capitalizedPart}</BreadcrumbPage>
                                 ) : (
                                     <BreadcrumbLink asChild>
                                         <Link to={pathTo}>{capitalizedPart}</Link>

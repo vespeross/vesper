@@ -10,8 +10,9 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { signupSchema } from "./validation";
+import ErrorMessage from "@/components/ErrorMessage";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const {
@@ -51,7 +52,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
               {...register("email")}
             />
-            <p className="text-red-500 text-sm">{errors.email?.message}</p>
+            <ErrorMessage error={errors.email?.message} />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="email">
@@ -67,13 +68,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
               {...register("password")}
             />
-            <p className="text-red-500 text-sm">{errors.password?.message}</p>
+            <ErrorMessage error={errors.password?.message} />
           </div>
           <Button type="submit" disabled={isLoading} className="font-semibold items-center gap-1">
-            {isLoading  ? 
+            {isLoading ?
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" /> :
               <UserCircle size={20} weight="fill" />
-             }
+            }
             Create Account
           </Button>
         </div>
