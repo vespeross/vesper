@@ -24,6 +24,6 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "mintlify": "^4.0.160",
-    "turbo": "^1.13.2"
+    "turbo": "^1.13.3"
   }
 }

@@ -33,7 +33,6 @@ export const CreateProjectCard: React.FC = () => {
     resolver: yupResolver(createProjectSchema),
   });
   const onSubmit = async (data: { name: string; description: string }) => {
-    console.log(data);
     await create(data);
   };
   return (

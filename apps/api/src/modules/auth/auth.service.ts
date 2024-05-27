@@ -67,11 +67,6 @@ export class AuthService implements IAuthService {
   }
 
   public async generateTokens(user: IAuthPayload): Promise<ITokenResponse> {
-    console.log(user);
-    console.log({
-      accessTokenSecret: this.accessTokenSecret,
-      refreshTokenSecret: this.refreshTokenSecret,
-    });
     const accessToken = this.jwtService.sign(
       {
         cid: user.cid,

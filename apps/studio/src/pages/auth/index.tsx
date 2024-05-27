@@ -3,10 +3,19 @@ import { Register } from "./register";
 import { useNewQuery } from "@/store/slices/general";
 import { Login } from "./login";
 import { Icons } from "@/components/ui/icons";
+import { useUser } from "@/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const Auth: React.FC = () => {
   const { data, isFetching, isLoading } = useNewQuery();
+  const { isAuthenticated } = useUser();
   const loading = isFetching || isLoading;
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
   return (
     <>
       <div className="container relative hidden min-h-screen h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -18,11 +27,15 @@ export const Auth: React.FC = () => {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;This library has saved me countless hours of work and
-                helped me deliver stunning designs to my clients faster than
-                ever before.&rdquo;
+                &ldquo; Set Up Your Database in Seconds, Let Us Handle the Rest
+                --{" "}
+                <span className="font-thin">
+                  Cause your primary focus should be on building your app, not
+                  managing database!! Easy to setup, Cheap to maintain, and
+                  Easiliy Scalable
+                </span>
+                &rdquo;
               </p>
-              <footer className="text-sm">Sofia Davis</footer>
             </blockquote>
           </div>
         </div>
