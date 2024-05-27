@@ -58,7 +58,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="password"
-              placeholder="*******"
+              placeholder="********"
               type="password"
               autoCapitalize="none"
               autoComplete="new-password"

@@ -166,6 +166,8 @@ importers:
         specifier: ^5.1.3
         version: 5.4.5
 
+  apps/docs: {}
+
   apps/studio:
     dependencies:
       '@hookform/resolvers':

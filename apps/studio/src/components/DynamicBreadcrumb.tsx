@@ -5,9 +5,9 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 export default function DynamicBreadcrumb() {
     const { pathname } = useLocation()
 
-    const pathParts = pathname.split('/').filter(part => part) 
+    const pathParts = pathname.split('/').filter(part => part)
 
-    const capitalize = (str:string) => {
+    const capitalize = (str: string) => {
         return str.replace(/\b\w/g, char => char.toUpperCase())
     }
 
@@ -17,11 +17,13 @@ export default function DynamicBreadcrumb() {
                 {pathParts.map((part, index) => {
                     const isLast = index === pathParts.length - 1
                     const pathTo = '/' + pathParts.slice(0, index + 1).join('/')
-                    const capitalizedPart = capitalize(part)
+
+                    const modifiedPart = (index > 1 && pathParts[index - 1] === 'projects') ? 'xyz' : part
+                    const capitalizedPart = capitalize(modifiedPart)
 
                     return (
                         <React.Fragment key={index}>
-                            {index > 0 && <BreadcrumbSeparator />} 
+                            {index > 0 && <BreadcrumbSeparator />}
                             <BreadcrumbItem>
                                 {isLast ? (
                                     <BreadcrumbPage>{capitalizedPart}</BreadcrumbPage>

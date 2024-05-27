@@ -40,7 +40,7 @@ export const Header: React.FC = React.memo(() => {
             vesper
           </Link>
         </div>
-        <nav className="mx-10 flex-row gap-5 md:inline-flex hidden ">
+        <nav className="mx-10 flex-row gap-4 md:inline-flex hidden ">
           {entries.map((entry, key) => (
             <Link
               key={key}
