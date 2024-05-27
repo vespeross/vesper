@@ -24,12 +24,18 @@ import {
   PencilSimpleLine,
   Trash,
 } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
 
 export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+  const navigate = useNavigate();
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <Card onClick={() => {}}>
+        <Card
+          onClick={() => {
+            navigate(`/dashboard/project/cid=${project.cid}`);
+          }}
+        >
           <CardHeader>
             <CardTitle>{project.name}</CardTitle>
           </CardHeader>
