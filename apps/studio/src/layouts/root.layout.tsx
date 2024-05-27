@@ -7,7 +7,6 @@ export const RootLayout: React.FC = () => {
   const { isLoading } = useGetMeQuery({});
   const location = useLocation();
   const { isAuthenticated } = useUser();
-  console.log("Auth status:",isAuthenticated)
   if (isLoading) {
     return null;
   }

@@ -1,8 +1,9 @@
 import { useStoreSelector, useStoreDispatch } from "@/hooks";
 import type { useUserType } from "./types";
-import { actions } from "@/store/slices/auth";
+import { actions, useGetMeQuery } from "@/store/slices/auth";
 
 export const useUser = (): useUserType => {
+  const { isLoading } = useGetMeQuery({});
   const user = useStoreSelector((state) => state.auth.user);
   const dispatch = useStoreDispatch();
   const isAuthenticated =
@@ -10,5 +11,5 @@ export const useUser = (): useUserType => {
   const logOut = () => {
     dispatch(actions.removeUser());
   };
-  return { user, isAuthenticated, logOut };
+  return { user, isAuthenticated, logOut, isLoading };
 };
