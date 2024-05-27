@@ -18,7 +18,7 @@ export const Auth: React.FC = () => {
   }, [isAuthenticated, navigate]);
   return (
     <>
-      <div className="container relative min-h-screen flex-col items-center justify-center md:grid lg:grid-cols-2 lg:px-0">
+      <div className="relative min-h-screen items-center justify-center md:grid lg:grid-cols-2 lg:px-0">
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-2xl font-semibold  select-none animate-shine bg-[linear-gradient(110deg,#939393,45%,#fff,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text">
@@ -39,7 +39,7 @@ export const Auth: React.FC = () => {
             </blockquote>
           </div>
         </div>
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-screen px-2">
           {loading ? (
             <Icons.spinner className="w-6 h-6 animate-spin" />
           ) : data?.body.isNewInstall ? (
