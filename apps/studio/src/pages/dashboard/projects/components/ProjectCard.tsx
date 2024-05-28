@@ -54,7 +54,11 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuLabel>Project Actions</ContextMenuLabel>
-        <ContextMenuItem>
+        <ContextMenuItem
+          onClick={() => {
+            navigate(`/dashboard/projects/${project.cid}`);
+          }}
+        >
           <Eye weight="duotone" />
           View Project
         </ContextMenuItem>
