@@ -17,7 +17,7 @@ export default function WithHeaderLayout({
         />
       )}
       <Header />
-      <main className="max-w-7xl mx-auto">{children}</main>
+      <main className="max-w-7xl mx-auto min-h-screen">{children}</main>
       <Footer />
     </>
   );
