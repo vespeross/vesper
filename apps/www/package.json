@@ -16,16 +16,22 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.1.7",
+    "gray-matter": "^4.0.3",
+    "moment": "^2.30.1",
     "next": "14.2.3",
+    "next-mdx-remote": "^5.0.0",
     "next-nprogress-bar": "^2.3.11",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "rehype-pretty-code": "^0.13.2",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "unified": "^11.0.4"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

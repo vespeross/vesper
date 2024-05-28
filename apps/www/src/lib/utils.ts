@@ -8,3 +8,5 @@ export function cn(...inputs: ClassValue[]) {
 export const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);
 };
+
+

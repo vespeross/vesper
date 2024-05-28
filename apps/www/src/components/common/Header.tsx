@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { sora } from "@/lib/fonts";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
 type Entry = {
   title: string;
@@ -11,7 +11,7 @@ type Entry = {
 };
 
 const entries: Entry[] = [
-  { title: "Blogs", href: "/blogs" },
+  { title: "Blog", href: "/blog" },
   { title: "Documentation", href: "/docs" },
   { title: "CLI", href: "/cli" },
   { title: "Benchmarks", href: "/benchmarks" },
@@ -36,7 +36,10 @@ export const Header: React.FC = React.memo(() => {
     >
       <div className="max-w-7xl mx-auto px-4 flex flex-row justify-between items-center">
         <div>
-          <Link href={"/"} className={`${sora.className} text-2xl font-semibold  select-none animate-shine bg-[linear-gradient(110deg,#939393,45%,#fff,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text`}>
+          <Link
+            href={"/"}
+            className={`${sora.className} text-2xl font-semibold  select-none animate-shine bg-[linear-gradient(110deg,#939393,45%,#fff,55%,#939393)] bg-[length:200%_100%] text-transparent bg-clip-text`}
+          >
             vesper
           </Link>
         </div>
@@ -51,7 +54,22 @@ export const Header: React.FC = React.memo(() => {
             </Link>
           ))}
         </nav>
-        <GitHubLogoIcon className="w-6 h-6 text-[#a8a8a8]" />
+        <div className="flex flex-row gap-4">
+          <Link
+            href={"https://discord.gg/psqzQtP6"}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <DiscordLogoIcon className="w-6 h-6 text-[#a8a8a8]" />
+          </Link>
+          <Link
+            href={"https://github.com/vespeross"}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GitHubLogoIcon className="w-6 h-6 text-[#a8a8a8]" />
+          </Link>
+        </div>
       </div>
     </header>
   );
