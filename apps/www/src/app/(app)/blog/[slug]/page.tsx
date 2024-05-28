@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 import { bricolage } from "@/lib/fonts";
 import { getMdxContent, postMetaData } from "@/lib/mdx";
 import { notFound } from "next/navigation";
