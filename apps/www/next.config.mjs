@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["tsx", "ts", "js", "mjs", "mdx"],
+  experimental: {
+    mdxRs: false,
+  },
   redirects: async () => {
     return [
       {
@@ -24,6 +27,14 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "raw.githubusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "source.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "neon.tech",
       },
     ],
   },

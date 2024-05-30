@@ -1,10 +1,8 @@
-import { bricolage } from "@/lib/fonts";
-import { getMdxContent, postMetaData } from "@/lib/mdx";
-import { notFound } from "next/navigation";
 import * as React from "react";
-import moment from "moment";
+import { notFound } from "next/navigation";
+import { getMdxContent, postMetaData } from "@/lib/mdx";
 import { Content } from "@/components/blog";
-import Image from "next/image";
+import { Meta } from "@/components/blog/Meta";
 
 export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   const post = postMetaData.find((post) => post.slug === params.slug);
@@ -40,20 +38,21 @@ export default async function Page({
   const { content, frontmatter } = await getMdxContent(params.slug);
   return (
     <main className="my-10">
-      <h1 className={`${bricolage.className} text-4xl`}>{frontmatter.title}</h1>
-      <p>
-        {frontmatter.authorName}{" "}
-        <Image
-          src={frontmatter.authorAvatarUrl}
-          width={24}
-          height={24}
-          alt={frontmatter.authorName}
-        />
-      </p>
-      <p className="text-xs text-[#cecece] my-4">
-        {moment(frontmatter.date).format("MMMM D, YYYY")} (
-        {moment(frontmatter.date).fromNow()})
-      </p>
+      <Meta
+        article={{
+          author: {
+            avatar: frontmatter.authorAvatarUrl,
+            name: frontmatter.authorName,
+            url: frontmatter.authorUrl,
+          },
+          date: frontmatter.date,
+          excerpt: frontmatter.excerpt,
+          image: frontmatter.image,
+          tags: frontmatter.tags.split(","),
+          slug: params.slug,
+          title: frontmatter.title,
+        }}
+      />
       <Content content={content} />
     </main>
   );
