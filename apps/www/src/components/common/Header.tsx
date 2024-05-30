@@ -12,7 +12,7 @@ type Entry = {
 
 const entries: Entry[] = [
   { title: "Blog", href: "/blog" },
-  { title: "Documentation", href: "/docs" },
+  { title: "Documentation", href: "https://vesper.mintlify.app/" },
   { title: "CLI", href: "/cli" },
   { title: "Benchmarks", href: "/benchmarks" },
 ];
@@ -32,7 +32,7 @@ export const Header: React.FC = React.memo(() => {
   }, []);
   return (
     <header
-      className={`py-4 sticky z-100 top-0 backdrop-saturate-[150%] transform transition-all duration-150 bg-[#0e0e0e88] border-b-[#272727]  border-b-[0.5px]  ${isScrolled ? `backdrop-blur-[5px]` : `backdrop-blur-[2px]`} transition-all duration-300 ease-in-out`}
+      className={`py-4 sticky z-10 top-0 backdrop-saturate-[150%] transform transition-all duration-150 bg-[#0e0e0e88] border-b-[#272727]  border-b-[0.5px]  ${isScrolled ? `backdrop-blur-[5px]` : `backdrop-blur-[2px]`} transition-all duration-300 ease-in-out`}
     >
       <div className="max-w-7xl mx-auto px-4 flex flex-row justify-between items-center">
         <div>

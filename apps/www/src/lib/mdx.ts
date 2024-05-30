@@ -13,7 +13,7 @@ export const postPaths = fs
   .readdirSync(postsDir)
   .filter((path) => /\.mdx?$/.test(path));
 
-type Article = {
+export type Article = {
   author: {
     url: string;
     name: string;
@@ -38,7 +38,7 @@ export const postMetaData: Article[] = postPaths.map((postPath) => {
     },
     title: data.title,
     date: data.date,
-    excerpt: data.summary,
+    excerpt: data.excerpt,
     image: data.image,
     tags: data.tags.split(","),
     slug: postPath.replace(/\.mdx?$/, ""),
@@ -47,11 +47,6 @@ export const postMetaData: Article[] = postPaths.map((postPath) => {
 
 const prettyCodeOptions: RehypePrettyCodeOptions = {
   theme: "vitesse-dark",
-  onVisitLine(node: { children: string | any[] }) {
-    if (node.children.length === 0) {
-      node.children = [{ type: "text", value: " " }];
-    }
-  },
 };
 
 export const getMdxContent = async (slug: string) => {

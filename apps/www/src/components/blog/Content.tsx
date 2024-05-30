@@ -7,7 +7,7 @@ type Props = {
 export const Content: React.FC<Props> = React.memo(({ content }) => {
   return (
     <div
-      className={`${sora.className} my-5 prose-img:w-full prose-img:rounded-lg prose-lg`}
+      className={`${sora.className} px-4 my-10 prose-img:w-full prose-img:rounded-lg prose-lg`}
     >
       {content}
     </div>

@@ -1,29 +1,34 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "vesper docs",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#181818",
+    "light": "#b5b5b5",
+    "dark": "#181818",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#181818",
+      "to": "#b5b5b5"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
       "url": "mailto:hi@mintlify.com"
+    },
+    {
+      "name": "Contact Us",
+      "url": "mailto:hi@mintlify.com"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Get Started",
+    "type": "link",
+    "url": "https://vesper.rubiks.cloud/docs/quickstart"
   },
   "tabs": [
     {
@@ -35,27 +40,23 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "/"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Self Host",
+      "icon": "server",
+      "url": "self-host"
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://vesper.rubiks.cloud/blog"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
+      "pages": ["introduction", "quickstart", "development"]
     },
     {
       "group": "Essentials",
@@ -70,9 +71,7 @@
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "pages": ["api-reference/introduction"]
     },
     {
       "group": "Endpoint Examples",
