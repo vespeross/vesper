@@ -133,3 +133,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .vercel
+
+
+#OSX
+.DS_Store
