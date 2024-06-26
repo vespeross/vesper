@@ -22,6 +22,7 @@
     "url": "https://jabed.dev"
   },
   "license": "Apache-2.0",
+  "packageManager": "pnpm@9.4.0",
   "devDependencies": {
     "mintlify": "^4.0.174",
     "turbo": "^2.0.5"
