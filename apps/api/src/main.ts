@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import helmet from 'helmet';
-import * as compression from 'compression';
+import compression from 'compression';
 
 import { AppModule } from '@/app/app.module';
 import { setupSwagger } from '@/swagger';
